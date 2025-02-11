@@ -21,16 +21,28 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+// index page
 app.get('/campgrounds', async (req, res) => {
     try {
         const campgrounds = await Campground.find({});
+        // pass campgrounds to views/campgrounds/index.ejs
         res.render('campgrounds/index', {campgrounds});
     } catch (e) {
         console.log(e);
     }
 })
 
-// make a new campground
+// show page 
+app.get('/campgrounds/:id', async (req, res) => {
+    try {
+        const campgroundId = await Campground.findById(req.params.id);
+        res.render('campgrounds/show', {campgroundId});
+    } catch (e) { 
+        console.log(e);
+    }
+})
+
+// test: make a new campground
 app.get('/makecampground', async (req, res) => {
     const camp = new Campground({
         title: 'My Backyard',

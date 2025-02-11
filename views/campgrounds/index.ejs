@@ -7,8 +7,9 @@
 <body>
     <h1>All Campgrounds</h1>
     <ul>
+        <!-- listing campground titles and superlink that can direct to the show page -->
         <% for (let campground of campgrounds) {%>
-            <li><%= campground.title %></li>
+            <li><a href="/campgrounds/<%= campground._id %>"><%= campground.title %></a></li>
         <%} %>
     </ul>
 </body>
