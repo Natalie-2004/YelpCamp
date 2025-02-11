@@ -21,6 +21,15 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/campgrounds', async (req, res) => {
+    try {
+        const campgrounds = await Campground.find({});
+        res.render('campgrounds/index', {campgrounds});
+    } catch (e) {
+        console.log(e);
+    }
+})
+
 // make a new campground
 app.get('/makecampground', async (req, res) => {
     const camp = new Campground({

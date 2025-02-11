@@ -29,7 +29,7 @@ const seedDb = async() => {
             title: `${randArr(descriptors)} ${randArr(places)}`
         })
 
-        // save itno database for each seperate camp object that created
+        // save into database for each seperate camp object created
         await camp.save();
     }
 }
