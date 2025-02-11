@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path');
-
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const Campground = require('./models/campground');
 
@@ -19,6 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // parse request body back
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method')); // parse in query string
 
 app.get('/', (req, res) => {
     res.render('home')
@@ -48,7 +49,7 @@ app.post('/campgrounds', async (req, res) => {
     res.redirect(`/campgrounds/${campgroundNew._id}`);
 })
 
-// show page -> ':' have the lowest priority
+// show page -> ':' have the lowest priority at the same route 
 app.get('/campgrounds/:id', async (req, res) => {
     try {
         const campgroundId = await Campground.findById(req.params.id);
@@ -56,6 +57,23 @@ app.get('/campgrounds/:id', async (req, res) => {
     } catch (e) { 
         console.log(e);
     }
+})
+
+// edit page -> find and enter the target page to update
+app.get('/campgrounds/:id/edit', async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    res.render('campgrounds/edit', {campground});
+})
+
+// update database, send whenever the form is submitted
+app.put('/campgrounds/:id', async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findByIdAndUpdate(id, {
+        ...req.body.campground,
+    },{
+        new: true
+    })
+    res.redirect(`/campgrounds/${campground._id}`);
 })
 
 app.listen(3000, () => {
