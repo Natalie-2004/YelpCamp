@@ -1,16 +1,25 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show</title>
 </head>
-<body>
-    <h1><%= campgroundId.title %></h1>
-    <h2><%= campgroundId.location %></h2>
 
-    <footer>
-        <p><a href="/campgrounds/<%= campgroundId._id %>/edit">Edit Campground</a></p>
-        <a href="/campgrounds">Back to Index Page</a>
-    </footer>
+<body>
+    <h1>
+        <%= campgroundId.title %>
+    </h1>
+    <h2>
+        <%= campgroundId.location %>
+    </h2>
+    <p>
+        <button><a href="/campgrounds/<%= campgroundId._id %>/edit">Edit Campground</a></button>
+        <form action="/campgrounds/<%= campgroundId._id %>/?_method=DELETE" method="POST">
+            <button>Delete this Campground</button>
+        </form>
+    </p>
+    <p><button><a href="/campgrounds">Back to Index Page</a></button></p>
 </body>
+
 </html>
