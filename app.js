@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const Campground = require('./models/campground');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
@@ -20,6 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 // parse request body back
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method')); // parse in query string
+app.engine('ejs', ejsMate);
 
 app.get('/', (req, res) => {
     res.render('home')
