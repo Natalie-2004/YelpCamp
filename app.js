@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 // parse request body back
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method')); // parse in query string
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname))); // server static file for favicon
 app.engine('ejs', ejsMate);
 
 app.get('/', (req, res) => {
