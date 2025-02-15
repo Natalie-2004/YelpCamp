@@ -24,7 +24,7 @@ const seedDb = async() => {
     
     for (let i = 0; i < 50; i++) {
         const rand = Math.floor(Math.random() * cities_au.length);
-        const price = Math.floor(Math.random() * 20) + 100;
+        const price = Math.floor(Math.random() * 50) + 100;
         const camp = new Campground({
             location: `${cities_au[rand].city}, ${cities_au[rand].state}`,
             title: `${randArr(descriptors)} ${randArr(places)}`,
