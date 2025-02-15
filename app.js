@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const Campground = require('./models/campground');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
@@ -20,6 +21,8 @@ app.set('views', path.join(__dirname, 'views'));
 // parse request body back
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method')); // parse in query string
+app.use(express.static(path.join(__dirname))); // server static file for favicon
+app.engine('ejs', ejsMate);
 
 app.get('/', (req, res) => {
     res.render('home')
@@ -52,8 +55,8 @@ app.post('/campgrounds', async (req, res) => {
 // show page -> ':' have the lowest priority at the same route 
 app.get('/campgrounds/:id', async (req, res) => {
     try {
-        const campgroundId = await Campground.findById(req.params.id);
-        res.render('campgrounds/show', {campgroundId});
+        const campground = await Campground.findById(req.params.id);
+        res.render('campgrounds/show', {campground});
     } catch (e) { 
         console.log(e);
     }

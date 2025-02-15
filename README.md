@@ -23,6 +23,8 @@
 1. Clone the repo:
 `
 git clone https://github.com/Natalie-2004/yelp-camp.git
+`
+`
 cd yelp-camp
 `
 
@@ -31,10 +33,11 @@ cd yelp-camp
 npm install
 `
 
-3. Start the MongoDB server: (Ensure MongoDB is running on your machine.)
-`
-mongosh mongodb://localhost:27017/yelp-camp
-`
+3. Start the MongoDB server: (Ensure MongoDB is running on your machine)
+
+    `
+    mongosh mongodb://localhost:27017/yelp-camp
+    `
 
 4. Open another terminal and run the line:
 `
@@ -47,7 +50,7 @@ http://localhost:3000
 `
 
 ## 4. Seeding the Database 🌱  
-To seed the database with random campgrounds
+To seed the database with random campgrounds:
 `node /seeds/index.js`
 
 ## 5. Usage 🚀
