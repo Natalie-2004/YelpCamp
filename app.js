@@ -55,8 +55,8 @@ app.post('/campgrounds', async (req, res) => {
 // show page -> ':' have the lowest priority at the same route 
 app.get('/campgrounds/:id', async (req, res) => {
     try {
-        const campgroundId = await Campground.findById(req.params.id);
-        res.render('campgrounds/show', {campgroundId});
+        const campground = await Campground.findById(req.params.id);
+        res.render('campgrounds/show', {campground});
     } catch (e) { 
         console.log(e);
     }
