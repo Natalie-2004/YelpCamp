@@ -8,7 +8,7 @@
 
 <img src="<%= campground.image %>" alt="#">
 <p><%= campground.description %></p>
-<p><b>Online rate: $<%= campground.price %></b></p>
+<p><b>Online price: $<%= campground.price %></b></p>
 <p>
     <button><a href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a></button>
 <form action="/campgrounds/<%= campground._id %>/?_method=DELETE" method="POST">
