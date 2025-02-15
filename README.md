@@ -1,22 +1,31 @@
-# Yelp Camp 🏕️ (v1)
+# Yelp Camp 🏕️ (v2)
 
 ## Contents 🌈
-- [1. Features ✨](#1-Features-) 
+- [1. Features and Functionality ✨](#1-Features-)
+    - [1.1 Updates: Basic seed model, HOME page and CRUD functionality](#11-updates)
+    - [1.2 Updates: Basic Styling and random display images](#12-updates)
 - [2. Technologies 🛠️](#2-technologies-️)
 - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
 - [4. Seeding the Database 🌱](#4-seeding-the-database-)
 - [5. Usage 🚀](#5-usage-)
 
-## 1. Features ✨
-- Create new campgrounds with a title and location.
-- View a list of all campgrounds.
-- Edit existing campgrounds.
-- Delete campgrounds.
+## 1. Features and Functionality ✨
+#### 1.1 Updates
+- Create new campgrounds with a title and location
+- View a list of all campgrounds
+- Edit existing campgrounds
+- Delete campgrounds
+
+#### 1.2 Updates
+- Style index, show, edit and new campground page using bootstrap5
+- Introduce random images, pricing and description to database
+- Refactor Boilderplate by isolating footer and navBar at seperate files
+- Custom cursor and favicon
 
 ## 2. Technologies 🛠️
-- Node.js and Express for the server.
-- MongoDB and Mongoose for the database.
-- EJS for templating.
+- Frontend: HTML/CSS, EJS
+- Database: MongoDB, Mongoose
+- Server: Js, Node.js, Express
 - Method-Override for handling PUT and DELETE requests.
 
 ## 3. Setup Instructions ⚙️
@@ -57,5 +66,6 @@ To seed the database with random campgrounds:
 - Navigate to `/campgrounds` to view all campgrounds.
 - Use the "New Campground" button to add a new listing.
 - Click on a campground to view details, edit, or delete it.
+
 
 
