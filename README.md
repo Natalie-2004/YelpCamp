@@ -23,9 +23,10 @@
 - Custom cursor and favicon
 
 ## 2. Technologies 🛠️
-- Frontend: HTML/CSS, EJS
+- Frontend: HTML/CSS, JS, EJS
+- Backend: JS
 - Database: MongoDB, Mongoose
-- Server: Js, Node.js, Express
+- Server: Node, Express
 - Method-Override for handling PUT and DELETE requests.
 
 ## 3. Setup Instructions ⚙️
