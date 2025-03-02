@@ -1,13 +1,16 @@
 # Yelp Camp 🏕️ (v2)
 
 ## Contents 🌈
-- [1. Features and Functionality ✨](#1-Features-)
-    - [1.1 Updates: Basic seed model, HOME page and CRUD functionality](#11-updates)
-    - [1.2 Updates: Basic Styling and random display images](#12-updates)
-- [2. Technologies 🛠️](#2-technologies-️)
-- [3. Setup Instructions ⚙️](#3-setup-instructions-️)
-- [4. Seeding the Database 🌱](#4-seeding-the-database-)
-- [5. Usage 🚀](#5-usage-)
+- [Yelp Camp 🏕️ (v2)](#yelp-camp-️-v2)
+  - [Contents 🌈](#contents-)
+  - [1. Features and Functionality ✨](#1-features-and-functionality-)
+      - [1.1 Updates](#11-updates)
+      - [1.2 Updates](#12-updates)
+      - [1.3 Updates](#13-updates)
+  - [2. Technologies 🛠️](#2-technologies-️)
+  - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
+  - [4. Seeding the Database 🌱](#4-seeding-the-database-)
+  - [5. Usage 🚀](#5-usage-)
 
 ## 1. Features and Functionality ✨
 #### 1.1 Updates
@@ -19,8 +22,14 @@
 #### 1.2 Updates
 - Style index, show, edit and new campground page using bootstrap5
 - Introduce random images, pricing and description to database
-- Refactor Boilderplate by isolating footer and navBar at seperate files
+- Refactor Boilderplate by isolating footer and navBar at separate files
 - Custom cursor and favicon
+
+#### 1.3 Updates
+- Implement Client and Server Side validation to enhance user experience
+- Handle basic async function error and develop consistence error display template
+- Customizse ExpressError handler to standardise error handling across the app
+- Integrate Joi schemas as middleware to validate incoming request data
 
 ## 2. Technologies 🛠️
 - Frontend: HTML/CSS, JS, EJS
