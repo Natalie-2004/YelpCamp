@@ -3,7 +3,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const Joi = require('joi');
+const { campgroundSchema } = require('./schemas.js');
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
@@ -28,6 +28,17 @@ app.use(methodOverride('_method')); // parse in query string
 app.use(express.static(path.join(__dirname))); // server static file for favicon
 app.engine('ejs', ejsMate);
 
+// middleware validation handler
+const validateCampground = (req, res, next) => {
+    const { error } = campgroundSchema.validate(req.body);
+    if (error) {
+        const mess = error.details.map(e => e.message).join(',');
+        throw new ExpressError(mess, 400);
+    } else {
+        next();
+    }
+}
+
 app.get('/', (req, res) => {
     res.render('home')
 })
@@ -44,23 +55,7 @@ app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new');
 })
 
-app.post('/campgrounds', catchAsync(async (req, res) => {
-    // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
-    const campgroundSchema = Joi.object({
-        campground: Joi.object({
-            title: Joi.string().required(),
-            price: Joi.number().required().min(0),
-            image: Joi.string().required(),
-            location: Joi.string().required(),
-            description: Joi.string().required()
-        }).required()
-    })
-    const {error} = campgroundSchema.validate(req.body);
-    if (error) {
-        const mess = error.details.map(e => e.message).join(',');
-        throw new ExpressError(mess, 400);
-    }
-
+app.post('/campgrounds', validateCampground, catchAsync(async (req, res) => {
     // by default .body is empty
     // .Campground since it's grouped at ejs
     const campgroundNew = new Campground(req.body.campground);
@@ -75,13 +70,13 @@ app.get('/campgrounds/:id', catchAsync(async (req, res) => {
 }))
 
 // edit page -> find and enter the target page to update
-app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
+app.get('/campgrounds/:id/edit', validateCampground, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
 }))
 
 // update database, send whenever the form is submitted
-app.put('/campgrounds/:id', catchAsync(async (req, res) => {
+app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {
         ...req.body.campground,
@@ -104,11 +99,11 @@ app.all('*', (req, res, next) => {
 
 // generic error handler
 app.use((err, req, res, next) => {
-    const {statusCode = 500} = err;
+    const { statusCode = 500 } = err;
     if (!err.message) {
         err.message = 'Oh No! Something went wrong!'
     }
-    res.status(statusCode).render('error', {err});
+    res.status(statusCode).render('error', { err });
 })
 
 app.listen(3000, () => {
