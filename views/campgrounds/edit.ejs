@@ -1,36 +1,79 @@
 <% layout('layout/boilerplate') %>
-<div class="row">
-    <h1 class="text-center">Edit Campground</h1>
-    <div class="col-6 offset-3">
-        <!-- as html don't support put, we need to override it with PUT at app.js-->
-        <form action="/campgrounds/<%= campground._id %>/?_method=PUT" method="POST">
-            <div class="mb-3">
-                <label class="form-label">Title</label>
-                <input class="form-control" type="text" id="title" name="campground[title]" value="<%= campground.title %>">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Location</label>
-                <input class="form-control" type="text" id="location" name="campground[location]" value="<%= campground.location %>">
-            </div>
-            <!-- TODO: change to upload image -->
-            <div class="mb-3">
-                <label class="form-label">Image URL</label>
-                <input class="form-control" type="text" id="image" name="campground[image]" value="<%= campground.image %>">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Campground Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">$</span>
-                    <input type="text" class="form-control" id="price-label" placeholder="0.00" aria-label="Amount (to the nearest dollar)" name="campground[price]" value="<%= campground.price %>">
-                    <span class="input-group-text" id="price-label">.00</span>
+    <div class="row">
+        <h1 class="text-center">Edit Campground</h1>
+        <div class="col-6 offset-3">
+            <!-- as html don't support put, we need to override it with PUT at app.js-->
+            <form action="/campgrounds/<%= campground._id %>/?_method=PUT" method="POST" novalidate
+                class="validated-form">
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" type="text" id="title" name="campground[title]"
+                        value="<%= campground.title %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea class="form-control" type="text" id="description" name="campground[description]"><%= campground.description %></textarea>
-            </div>
-            <button class="btn btn-info">Update Campground</button>
-            <a class="btn btn-warning" href="/campgrounds">Back To Index Page</a>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input class="form-control" type="text" id="location" name="campground[location]"
+                        value="<%= campground.location %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <!-- TODO: change to upload image -->
+                <div class="mb-3">
+                    <label class="form-label">Image URL</label>
+                    <input class="form-control" type="text" id="image" name="campground[image]"
+                        value="<%= campground.image %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Campground Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input type="number" min="0" class="form-control" id="price-label" placeholder="0.00"
+                            aria-label="Amount (to the nearest dollar)" name="campground[price]"
+                            value="<%= campground.price %>" required>
+                        <span class="input-group-text" id="price-label">.00</span>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="campground[description]"
+                        required><%= campground.description %></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button class="btn btn-info">Update Campground</button>
+                <a class="btn btn-warning" href="/campgrounds">Back To Index Page</a>
+            </form>
+        </div>
     </div>
-</div>
+
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.validated-form')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
