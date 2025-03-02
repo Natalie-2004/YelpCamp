@@ -3,6 +3,9 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const Joi = require('joi');
+
+const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
 const Campground = require('./models/campground');
 
@@ -42,6 +45,22 @@ app.get('/campgrounds/new', (req, res) => {
 })
 
 app.post('/campgrounds', catchAsync(async (req, res) => {
+    // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
+    const campgroundSchema = Joi.object({
+        campground: Joi.object({
+            title: Joi.string().required,
+            price: Joi.number().required.min(0),
+            image: Joi.string().required,
+            location: Joi.string().required,
+            description: Joi.string().required
+        }).required()
+    })
+    const {error} = campgroundSchema.validate(req.body);
+    if (result.error) {
+        const mess = error.details.map(e => e.message).join(',');
+        throw new ExpressError(mess, 400);
+    }
+
     // by default .body is empty
     // .Campground since it's grouped at ejs
     const campgroundNew = new Campground(req.body.campground);
@@ -72,15 +91,24 @@ app.put('/campgrounds/:id', catchAsync(async (req, res) => {
     res.redirect(`/campgrounds/${campground._id}`);
 }))
 
-// detele a specific campground through id searching
+// delete a specific campground through id searching
 app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
 }))
 
+app.all('*', (req, res, next) => {
+    next(new ExpressError('PAGE NOT FOUND', 404));
+})
+
+// generic error handler
 app.use((err, req, res, next) => {
-    res.send('Something went wrong!');
+    const {statusCode = 500} = err;
+    if (!err.message) {
+        err.message = 'Oh No! Something went wrong!'
+    }
+    res.status(statusCode).render('error', {err});
 })
 
 app.listen(3000, () => {
