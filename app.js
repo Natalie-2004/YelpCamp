@@ -4,10 +4,12 @@ const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const { campgroundSchema } = require('./schemas.js');
+const Review = require('./models/review.js');
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
 const Campground = require('./models/campground');
+const campground = require('./models/campground');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 
@@ -73,6 +75,16 @@ app.get('/campgrounds/:id', catchAsync(async (req, res) => {
 app.get('/campgrounds/:id/edit', validateCampground, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
+}))
+
+// review fn on show page -> need campground id to associate it with relevant reviews
+app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
 }))
 
 // update database, send whenever the form is submitted
