@@ -12,3 +12,12 @@ const campgroundSchema = Joi.object({
 
 module.exports.campgroundSchema = campgroundSchema;
 
+const reviewSchema = Joi.object({
+    review: Joi.object({
+        rating: Joi.number().required(),
+        body: Joi.string().required()
+    }).required()
+})
+
+module.exports.reviewSchema = reviewSchema;
+

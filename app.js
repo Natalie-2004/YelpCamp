@@ -3,7 +3,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const { campgroundSchema } = require('./schemas.js');
+const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const Review = require('./models/review.js');
 
 const ExpressError = require('./utilities/ExpressError');
@@ -30,10 +30,24 @@ app.use(methodOverride('_method')); // parse in query string
 app.use(express.static(path.join(__dirname))); // server static file for favicon
 app.engine('ejs', ejsMate);
 
-// middleware validation handler
+// middlewares
+// validation handler on server side i.e. using postman
 const validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
     if (error) {
+        const mess = error.details.map(e => e.message).join(',');
+        throw new ExpressError(mess, 400);
+    } else {
+        next();
+    }
+}
+
+//
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    // console.log(error);
+    if (error) {
+        // TODO: redirect back
         const mess = error.details.map(e => e.message).join(',');
         throw new ExpressError(mess, 400);
     } else {
@@ -72,13 +86,13 @@ app.get('/campgrounds/:id', catchAsync(async (req, res) => {
 }))
 
 // edit page -> find and enter the target page to update
-app.get('/campgrounds/:id/edit', validateCampground, catchAsync(async (req, res) => {
+app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
 }))
 
 // review fn on show page -> need campground id to associate it with relevant reviews
-app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
