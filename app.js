@@ -3,11 +3,13 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const { campgroundSchema } = require('./schemas.js');
+const { campgroundSchema, reviewSchema } = require('./schemas.js');
+const Review = require('./models/review.js');
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
 const Campground = require('./models/campground');
+const campground = require('./models/campground');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 
@@ -28,10 +30,23 @@ app.use(methodOverride('_method')); // parse in query string
 app.use(express.static(path.join(__dirname))); // server static file for favicon
 app.engine('ejs', ejsMate);
 
-// middleware validation handler
+// middlewares
+// validation handler on server side i.e. using postman
 const validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
     if (error) {
+        const mess = error.details.map(e => e.message).join(',');
+        throw new ExpressError(mess, 400);
+    } else {
+        next();
+    }
+}
+
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    // console.log(error);
+    if (error) {
+        // TODO: redirect back
         const mess = error.details.map(e => e.message).join(',');
         throw new ExpressError(mess, 400);
     } else {
@@ -65,14 +80,24 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res) => {
 
 // show page -> ':' have the lowest priority at the same route 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const campground = await Campground.findById(req.params.id).populate('reviews');
     res.render('campgrounds/show', { campground });
 }))
 
 // edit page -> find and enter the target page to update
-app.get('/campgrounds/:id/edit', validateCampground, catchAsync(async (req, res) => {
+app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
+}))
+
+// review fn on show page -> need campground id to associate it with relevant reviews
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
 }))
 
 // update database, send whenever the form is submitted
@@ -91,6 +116,15 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
+}))
+
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    const {id, reviewId} = req.params;
+    // finds the campgroundId and remove the reviewId from its reviews array
+    await await Campground.findByIdAndUpdate(id, {$pull: {reviews:reviewId}});
+    // finds the review and remove from the database
+    await Review.findByIdAndDelete(req.params.reviewId);
+    res.redirect(`/campgrounds/${id}`);
 }))
 
 app.all('*', (req, res, next) => {

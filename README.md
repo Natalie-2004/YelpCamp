@@ -1,12 +1,13 @@
-# Yelp Camp 🏕️ (v2)
+# Yelp Camp 🏕️ (v4)
 
 ## Contents 🌈
-- [Yelp Camp 🏕️ (v2)](#yelp-camp-️-v2)
+- [Yelp Camp 🏕️ (v4)](#yelp-camp-️-v4)
   - [Contents 🌈](#contents-)
   - [1. Features and Functionality ✨](#1-features-and-functionality-)
       - [1.1 Updates](#11-updates)
       - [1.2 Updates](#12-updates)
       - [1.3 Updates](#13-updates)
+      - [1.4 Updates](#14-updates)
   - [2. Technologies 🛠️](#2-technologies-️)
   - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
   - [4. Seeding the Database 🌱](#4-seeding-the-database-)
@@ -28,15 +29,20 @@
 #### 1.3 Updates
 - Implement Client and Server Side validation to enhance user experience
 - Handle basic async function error and develop consistence error display template
-- Customizse ExpressError handler to standardise error handling across the app
+- Customise ExpressError handler to standardise error handling across the app
 - Integrate Joi schemas as middleware to validate incoming request data
+
+#### 1.4 Updates
+- Implement Review Model to allow user leave their universal ratings and feedbacks for a  campground particularly
+- Display users' reviews on show page
+- Validating reviews at both server and client side
+- Handling deletion of singular review using button and multiple reviews by delete a whole campground body
 
 ## 2. Technologies 🛠️
 - Frontend: HTML/CSS, JS, EJS
 - Backend: JS
-- Database: MongoDB, Mongoose
-- Server: Node, Express
-- Method-Override for handling PUT and DELETE requests.
+- Database: MongoDB
+- Framework/Model: DOM, Express, Mongoose
 
 ## 3. Setup Instructions ⚙️
 1. Clone the repo:
