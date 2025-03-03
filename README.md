@@ -1,7 +1,7 @@
-# Yelp Camp 🏕️ (v2)
+# Yelp Camp 🏕️ (v3)
 
 ## Contents 🌈
-- [Yelp Camp 🏕️ (v2)](#yelp-camp-️-v2)
+- [Yelp Camp 🏕️ (v3)](#yelp-camp-️-v3)
   - [Contents 🌈](#contents-)
   - [1. Features and Functionality ✨](#1-features-and-functionality-)
       - [1.1 Updates](#11-updates)
@@ -28,15 +28,14 @@
 #### 1.3 Updates
 - Implement Client and Server Side validation to enhance user experience
 - Handle basic async function error and develop consistence error display template
-- Customizse ExpressError handler to standardise error handling across the app
+- Customise ExpressError handler to standardise error handling across the app
 - Integrate Joi schemas as middleware to validate incoming request data
 
 ## 2. Technologies 🛠️
 - Frontend: HTML/CSS, JS, EJS
 - Backend: JS
-- Database: MongoDB, Mongoose
-- Server: Node, Express
-- Method-Override for handling PUT and DELETE requests.
+- Database: MongoDB
+- Framework/Model: DOM, Express, Mongoose
 
 ## 3. Setup Instructions ⚙️
 1. Clone the repo:
