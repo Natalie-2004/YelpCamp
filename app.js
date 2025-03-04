@@ -3,6 +3,8 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const ExpressError = require('./utilities/ExpressError');
+const session = require('express-session');
 
 const campgrounds = require('./routers/campgrounds.js');
 const reviews = require('./routers/reviews.js')
@@ -19,12 +21,24 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.engine('ejs', ejsMate);
 
-app.use(express.static('public')); // server static file for favicon
 // parse request body back
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method')); // parse in query string
-app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname, 'public'))); // server static file for favicon
+
+const sessionConfig = {
+    secret: 'password',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig));
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
