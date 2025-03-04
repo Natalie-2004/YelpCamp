@@ -41,13 +41,19 @@ router.post('/', validateCampground, catchAsync(async (req, res) => {
 // show page -> ':' have the lowest priority at the same route 
 router.get('/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id).populate('reviews');
-    res.render('campgrounds/show', { campground });
+    if (!campground) {
+        req.flash('error', 'Cannot found such campground!');
+        return res.redirect('/campgrounds');
+    } else res.render('campgrounds/show', { campground });
 }))
 
 // edit page -> find and enter the target page to update
 router.get('/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
-    res.render('campgrounds/edit', { campground });
+    if (!campground) {
+        req.flash('error', 'Cannot found such campground!');
+        return res.redirect('/campgrounds');
+    } else res.render('campgrounds/edit', { campground });
 }))
 
 // update database, send whenever the form is submitted
