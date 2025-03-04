@@ -93,7 +93,8 @@ To seed the database with random campgrounds:
 ## 5. Usage 🚀
 - Navigate to `/campgrounds` to view all campgrounds seeded.
 - Use the "New Campground" button to create customise Campground.
-- Click on a campground to view details, edit, or delete it.
+- Interact campground with options to view details, edit, or delete.
+- Leave rating and review under a campground to publics.
 
 
 
