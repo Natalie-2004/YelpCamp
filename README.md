@@ -15,7 +15,7 @@
 
 ## 1. Features and Functionality ✨
 #### 1.1 Updates
-- Create new campgrounds with a title and location
+- Create new campgrounds model with a title and location
 - View a list of all campgrounds
 - Edit existing campgrounds
 - Delete campgrounds
@@ -40,9 +40,10 @@
 
 ## 2. Technologies 🛠️
 - Frontend: HTML/CSS, JS, EJS
-- Backend: JS
+- Backend: JS, Node
 - Database: MongoDB
 - Framework/Model: DOM, Express, Mongoose
+- Platform: Git
 
 ## 3. Setup Instructions ⚙️
 1. Clone the repo:
