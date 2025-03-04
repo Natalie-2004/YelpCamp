@@ -3,6 +3,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const flash = require('connect-flash');
 const ExpressError = require('./utilities/ExpressError');
 const session = require('express-session');
 
@@ -27,6 +28,7 @@ app.engine('ejs', ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method')); // parse in query string
 app.use(express.static(path.join(__dirname, 'public'))); // server static file for favicon
+app.use(flash());
 
 const sessionConfig = {
     secret: 'password',
@@ -38,7 +40,15 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+
 app.use(session(sessionConfig));
+
+// capture flash success message among routers on every single request 
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);

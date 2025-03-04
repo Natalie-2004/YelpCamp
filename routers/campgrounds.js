@@ -34,6 +34,7 @@ router.post('/', validateCampground, catchAsync(async (req, res) => {
     // .Campground since it's grouped at ejs
     const campgroundNew = new Campground(req.body.campground);
     await campgroundNew.save();
+    req.flash('success', 'Successfully post a new campground!');
     res.redirect(`/campgrounds/${campgroundNew._id}`);
 }))
 
