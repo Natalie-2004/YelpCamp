@@ -20,10 +20,10 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.static('public')); // server static file for favicon
 // parse request body back
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method')); // parse in query string
-app.use(express.static(path.join(__dirname))); // server static file for favicon
 app.engine('ejs', ejsMate);
 
 app.use('/campgrounds', campgrounds);
