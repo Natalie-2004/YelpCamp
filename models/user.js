@@ -12,3 +12,5 @@ const UserSchema = new Schema({
 
 // addon unique username and password to userschema 
 UserSchema.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('User', UserSchema);

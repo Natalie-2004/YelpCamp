@@ -6,9 +6,12 @@ const ejsMate = require('ejs-mate');
 const flash = require('connect-flash');
 const ExpressError = require('./utilities/ExpressError');
 const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const Users = require('./models/user.js');
 
 const campgrounds = require('./routers/campgrounds.js');
-const reviews = require('./routers/reviews.js')
+const reviews = require('./routers/reviews.js');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 
@@ -18,6 +21,7 @@ db.once("open", () => {
     console.log("Database connected");
 })
 
+// app config
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -41,13 +45,31 @@ const sessionConfig = {
     }
 }
 
+// session need to be used before passport
 app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(Users.authenticate()));
+// get user into the session
+passport.serializeUser(Users.serializeUser());
+// get user out of the session
+passport.deserializeUser(Users.deserializeUser());
 
 // capture flash success message among routers on every single request 
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
+})
+
+app.get('/fakeUser', async (req, res) => {
+    const user = new Users({
+        email: 'natalieye@gmail.com',
+        username: 'natalieye'
+    })
+    const newUser = await Users.register(user, 'thisismypassword');
+    res.send(newUser);
 })
 
 app.use('/campgrounds', campgrounds);
