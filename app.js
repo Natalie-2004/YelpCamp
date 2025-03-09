@@ -10,8 +10,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const Users = require('./models/user.js');
 
-const campgrounds = require('./routers/campgrounds.js');
-const reviews = require('./routers/reviews.js');
+const campgroundsRoutes = require('./routers/campgrounds.js');
+const reviewsRoutes = require('./routers/reviews.js');
+const usersRoutes = require('./routers/users.js');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 
@@ -72,8 +73,9 @@ app.get('/fakeUser', async (req, res) => {
     res.send(newUser);
 })
 
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/campgrounds', campgroundsRoutes);
+app.use('/campgrounds/:id/reviews', reviewsRoutes);
+app.use('/', usersRoutes);
 
 app.get('/', (req, res) => {
     res.render('home')
