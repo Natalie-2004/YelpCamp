@@ -1,20 +1,10 @@
 <% layout('layout/boilerplate') %>
 
 <h1>REGISTER</h1>
-<form action="/register" method="POST" class="validated-form" novalidate>
+<form action="/login" method="POST" class="validated-form" novalidate>
     <div class="mb-3">
         <label class="form-label">Username</label>
         <input class="form-control" type="text" id="username" name="username"
-            required>
-        <!-- TODO: invalid feedback pop up for duplicated username and emails -->
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input class="form-control" type="email" id="email" name="email"
             required>
         <div class="valid-feedback">
             Looks good!
