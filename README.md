@@ -88,7 +88,7 @@ http://localhost:3000
 
 ## 4. Seeding the Database 🌱  
 To seed the database with random campgrounds:
-`node /seeds/index.js`
+`node seeds/index.js`
 
 ## 5. Usage 🚀
 - Navigate to `/campgrounds` to view all campgrounds seeded.
