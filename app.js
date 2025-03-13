@@ -57,20 +57,12 @@ passport.serializeUser(Users.serializeUser());
 // get user out of the session
 passport.deserializeUser(Users.deserializeUser());
 
-// capture flash success message among routers on every single request 
+// capture flash success message among routers on every single request globally
 app.use((req, res, next) => {
+    res.locals.currUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-})
-
-app.get('/fakeUser', async (req, res) => {
-    const user = new Users({
-        email: 'natalieye@gmail.com',
-        username: 'natalieye'
-    })
-    const newUser = await Users.register(user, 'thisismypassword');
-    res.send(newUser);
 })
 
 app.use('/campgrounds', campgroundsRoutes);

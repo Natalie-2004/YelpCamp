@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">YelpCamp</a>
+        <a class="navbar-brand" href="/">YelpCamp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -8,15 +8,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/">Campgrounds</a>
+                <a class="nav-link" href="/campgrounds">Campgrounds</a>
                 <a class="nav-link" href="/campgrounds/new">New Campgrounds</a>
             </div>
 
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/login">Log In</a>
-                <a class="nav-link" href="/register">Register</a>
-                <a class="nav-link" href="/logout">Log Out</a>
+                <% if (currUser) { %>
+                    <a class="nav-link" href="/"><%= currUser.username%></a>
+                    <a class="nav-link" href="/logout">Log Out</a>
+                <%} else { %>
+                    <a class="nav-link" href="/login">Log In</a>
+                    <a class="nav-link" href="/register">Register</a>
+                <% } %>
             </div>
 
 <!--            TODO: implement search bar function to find campground quickly-->

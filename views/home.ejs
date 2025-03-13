@@ -1,4 +1,9 @@
 <% layout('layout/boilerplate') %>
 <body>
-    <h1>HOME! YELP CAMP!</h1>
+    <% if (currUser) { %>
+        <h1><%= currUser.username%>, Welcome Back To YELP CAMP!</h1>
+        <% } else { %>
+        <h1>Welcome To YELP CAMP!</h1>
+        <button type="button" class="btn btn-outline-primary btn-lg"><a href="/register" style="text-decoration: none; color: inherit">Quick Register?</a></button>
+    <% }%>
 </body>

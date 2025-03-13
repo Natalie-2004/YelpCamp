@@ -28,8 +28,7 @@ routers.get('/login', (req, res) => {
 
 // https://www.passportjs.org/packages/passport-local/
 routers.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
-    const { username } = req.body;
-    req.flash('success', `Welcome back! ${username}`);
+    req.flash('success', `Welcome back! ${req.user.username}`);
     res.redirect('/campgrounds');
 })
 
