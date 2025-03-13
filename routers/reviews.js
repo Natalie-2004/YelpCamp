@@ -1,11 +1,12 @@
-const express = require('express')
-// add this if require accessing more params defined at app.js, i.e id
+const express = require('express');
+// add this if require accessing more params defined at app.js, i.e. id
 const router = express.Router({mergeParams: true});
 const { reviewSchema } = require('../schemas.js');
 const catchAsync = require('../utilities/catchAsync');
 const ExpressError = require('../utilities/ExpressError');
 const Campground = require('../models/campground');
 const Review = require('../models/review.js');
+const isLoggedIn = require('../middleware');
 
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
@@ -20,7 +21,7 @@ const validateReview = (req, res, next) => {
 }
 
 // review fn on show page -> need campground id to associate it with relevant reviews
-router.post('/', validateReview, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
     // don't have access to campground id at review routes at express routes
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
@@ -32,7 +33,7 @@ router.post('/', validateReview, catchAsync(async (req, res) => {
 }))
 
 //delete single review
-router.delete('/:reviewId', catchAsync(async (req, res) => {
+router.delete('/:reviewId', isLoggedIn, catchAsync(async (req, res) => {
     const {id, reviewId} = req.params;
     // finds the campgroundId and remove the reviewId from its reviews array
     await await Campground.findByIdAndUpdate(id, {$pull: {reviews:reviewId}});
