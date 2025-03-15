@@ -1,4 +1,4 @@
-# Yelp Camp 🏕️ (v5)
+# Yelp Camp 🏕️ (v6)
 
 ## Contents 🌈
 - [Yelp Camp 🏕️ (v5)](#yelp-camp-️-v5)
@@ -10,6 +10,7 @@
       - [1.3 Updates](#13-updates)
       - [1.4 Updates](#14-updates)
       - [1.5 Updates](#15-updates)
+      - [1.6 Updates](#16-updates)
   - [2. Technologies 🛠️](#2-technologies-️)
   - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
   - [4. Seeding the Database 🌱](#4-seeding-the-database-)
@@ -49,12 +50,20 @@
 - Enable session management and cookie configuration
 - Integrate flash section to capturing success and error messages and alert on client side
 
+#### 1.6 Updates
+- Create User model for handle users' registration, login and logout process using passport.js
+- Implement express routes for users' reuqests
+- Restrict unlogin-users from modifying, commenting at campgrounds
+- Use middleware to execute login logic and presever url that unlogin-users previsouly visited after being redirected to login site
+- Refactor narBar to carry out functionalities such as login, logout and register
+- Decroate corresponding forms to collect users credentials such as usernames, emails and passwords for verification
+
 ## 2. Technologies 🛠️
-- Frontend: HTML/CSS, JS, EJS
-- Backend: JS, Node
+- Frontend: HTML/CSS, JavaScript, EJS
+- Backend: JavaScript, NodeJS
 - Database: MongoDB
-- Framework/Model: DOM, Express, Mongoose
-- Platform: Git
+- Library/Model: BootStrap, Express, Mongoose
+- Platform: Git, VS Code, WebStorm
 
 ## 3. Setup Instructions ⚙️
 1. Clone the repo:
