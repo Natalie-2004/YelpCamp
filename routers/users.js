@@ -13,9 +13,13 @@ routers.post('/register', catchAsync(async (req, res) => {
         const { username, email, password } = req.body;
         const newUser = new User({ username, email });
         const registerUser = await User.register(newUser, password);
-        // console.log(registerUser);
-        req.flash('success', 'Welcome to Yelp Camp!');
-        res.redirect('/campgrounds');
+        // login user immediately after registration success -> authenticate is not suitable as we obviously can't access new user's identification
+        // this is callback fn
+        req.login(registerUser, err => {
+            if (err) return next(err);
+            req.flash('success', 'Welcome to Yelp Camp!');
+            res.redirect('/campgrounds');
+        });
     } catch (error) {
         req.flash('error', error.message);
         return res.redirect('/register');
@@ -32,7 +36,6 @@ routers.post('/login', passport.authenticate('local', {failureFlash: true, failu
     res.redirect('/campgrounds');
 })
 
-// TODO logout
 routers.get('/logout', (req, res, next) => {
     req.logout(function (err) {
         if (err) {
