@@ -1,7 +1,7 @@
-# Yelp Camp 🏕️ (v4)
+# Yelp Camp 🏕️ (v5)
 
 ## Contents 🌈
-- [Yelp Camp 🏕️ (v4)](#yelp-camp-️-v4)
+- [Yelp Camp 🏕️ (v5)](#yelp-camp-️-v5)
   - [Contents 🌈](#contents-)
   - [1. Features and Functionality ✨](#1-features-and-functionality-)
     - [Update Log](#update-log)
@@ -88,7 +88,7 @@ http://localhost:3000
 
 ## 4. Seeding the Database 🌱  
 To seed the database with random campgrounds:
-`node /seeds/index.js`
+`node seeds/index.js`
 
 ## 5. Usage 🚀
 - Navigate to `/campgrounds` to view all campgrounds seeded.

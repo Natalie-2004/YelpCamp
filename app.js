@@ -6,9 +6,13 @@ const ejsMate = require('ejs-mate');
 const flash = require('connect-flash');
 const ExpressError = require('./utilities/ExpressError');
 const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const Users = require('./models/user.js');
 
-const campgrounds = require('./routers/campgrounds.js');
-const reviews = require('./routers/reviews.js')
+const campgroundsRoutes = require('./routers/campgrounds.js');
+const reviewsRoutes = require('./routers/reviews.js');
+const usersRoutes = require('./routers/users.js');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 
@@ -18,6 +22,7 @@ db.once("open", () => {
     console.log("Database connected");
 })
 
+// app config
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -41,17 +46,28 @@ const sessionConfig = {
     }
 }
 
+// session need to be used before passport
 app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
 
-// capture flash success message among routers on every single request 
+passport.use(new LocalStrategy(Users.authenticate()));
+// get user into the session
+passport.serializeUser(Users.serializeUser());
+// get user out of the session
+passport.deserializeUser(Users.deserializeUser());
+
+// capture flash success message among routers on every single request globally
 app.use((req, res, next) => {
+    res.locals.currUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
 
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/campgrounds', campgroundsRoutes);
+app.use('/campgrounds/:id/reviews', reviewsRoutes);
+app.use('/', usersRoutes);
 
 app.get('/', (req, res) => {
     res.render('home')
