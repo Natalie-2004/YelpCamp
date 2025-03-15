@@ -6,13 +6,12 @@ const catchAsync = require('../utilities/catchAsync');
 const ExpressError = require('../utilities/ExpressError');
 const Campground = require('../models/campground');
 const Review = require('../models/review.js');
-const isLoggedIn = require('../middleware');
+const { isLoggedIn, storeReturnTo } = require('../middleware');
 
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     // console.log(error);
     if (error) {
-        // TODO: redirect back
         const mess = error.details.map(e => e.message).join(',');
         throw new ExpressError(mess, 400);
     } else {

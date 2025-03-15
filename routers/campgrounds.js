@@ -4,7 +4,7 @@ const { campgroundSchema } = require('../schemas.js');
 const catchAsync = require('../utilities/catchAsync');
 const ExpressError = require('../utilities/ExpressError');
 const Campground = require('../models/campground');
-const isLoggedIn = require('../middleware');
+const { isLoggedIn, storeReturnTo } = require('../middleware');
 
 // middleware
 // validation handler on server side i.e. using postman
