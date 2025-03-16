@@ -26,6 +26,7 @@ const seedDb = async() => {
         const rand = Math.floor(Math.random() * cities_au.length);
         const price = Math.floor(Math.random() * 500) + 100;
         const camp = new Campground({
+            author: '67d54dfad697ed21fed2641a', // by default set z5453932 as the owner of all accounts
             location: `${cities_au[rand].city}, ${cities_au[rand].state}`,
             title: `${randArr(descriptors)} ${randArr(places)}`,
             image: `https://picsum.photos/400?random=${Math.random()}`,

@@ -34,6 +34,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => 
     // by default .body is empty
     // .Campground since it's grouped at ejs
     const campgroundNew = new Campground(req.body.campground);
+    campgroundNew.author = req.user._id;
     await campgroundNew.save();
     req.flash('success', 'Successfully post a new campground!');
     res.redirect(`/campgrounds/${campgroundNew._id}`);
@@ -41,7 +42,8 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => 
 
 // show page -> ':' have the lowest priority at the same route 
 router.get('/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews');
+    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    console.log(campground);
     if (!campground) {
         req.flash('error', 'Cannot found such campground!');
         return res.redirect('/campgrounds');
