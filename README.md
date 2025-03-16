@@ -70,9 +70,11 @@
 
 - Frontend: HTML/CSS, JS, EJS
 - Backend: JS, Node
+- Frontend: HTML/CSS, JavaScript, EJS
+- Backend: JavaScript, NodeJS
 - Database: MongoDB
-- Framework/Model: DOM, Express, Mongoose
-- Platform: Git
+- Library/Model: BootStrap, Express, Mongoose
+- Platform: Git, VS Code, WebStorm
 
 ## 3. Setup Instructions ⚙️
 
@@ -100,3 +102,6 @@ To seed the database with random campgrounds:
 - Use the "New Campground" button to create customise Campground.
 - Interact campground with options to view details, edit, or delete.
 - Leave rating and review under a campground to publics.
+
+
+
