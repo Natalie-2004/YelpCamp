@@ -1,23 +1,10 @@
 const express = require('express');
 // add this if require accessing more params defined at app.js, i.e. id
 const router = express.Router({mergeParams: true});
-const { reviewSchema } = require('../schemas.js');
 const catchAsync = require('../utilities/catchAsync');
-const ExpressError = require('../utilities/ExpressError');
 const Campground = require('../models/campground');
 const Review = require('../models/review.js');
-const { isLoggedIn, storeReturnTo } = require('../middleware');
-
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    // console.log(error);
-    if (error) {
-        const mess = error.details.map(e => e.message).join(',');
-        throw new ExpressError(mess, 400);
-    } else {
-        next();
-    }
-}
+const { isLoggedIn, validateReview } = require('../middleware');
 
 // review fn on show page -> need campground id to associate it with relevant reviews
 router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
