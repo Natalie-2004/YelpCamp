@@ -1,22 +1,8 @@
 const express = require('express')
 const router = express.Router();
-const { campgroundSchema } = require('../schemas.js');
 const catchAsync = require('../utilities/catchAsync');
-const ExpressError = require('../utilities/ExpressError');
 const Campground = require('../models/campground');
-const { isLoggedIn, storeReturnTo } = require('../middleware');
-
-// middleware
-// validation handler on server side i.e. using postman
-const validateCampground = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body);
-    if (error) {
-        const mess = error.details.map(e => e.message).join(',');
-        throw new ExpressError(mess, 400);
-    } else {
-        next();
-    }
-}
+const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
 
 // index page
 router.get('/', catchAsync(async (req, res, next) => {
@@ -34,6 +20,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => 
     // by default .body is empty
     // .Campground since it's grouped at ejs
     const campgroundNew = new Campground(req.body.campground);
+    campgroundNew.author = req.user._id;
     await campgroundNew.save();
     req.flash('success', 'Successfully post a new campground!');
     res.redirect(`/campgrounds/${campgroundNew._id}`);
@@ -41,7 +28,16 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => 
 
 // show page -> ':' have the lowest priority at the same route 
 router.get('/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews');
+    // const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    const campground = await Campground.findById(req.params.id)
+    .populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    })
+    .populate('author');
+    // console.log(campground);
     if (!campground) {
         req.flash('error', 'Cannot found such campground!');
         return res.redirect('/campgrounds');
@@ -49,30 +45,32 @@ router.get('/:id', catchAsync(async (req, res) => {
 }))
 
 // edit page -> find and enter the target page to update
-router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
     if (!campground) {
         req.flash('error', 'Cannot found such campground!');
         return res.redirect('/campgrounds');
-    } else res.render('campgrounds/edit', { campground });
+    }
+    res.render('campgrounds/edit', { campground });
 }))
 
 // update database, send whenever the form is submitted
-router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, {
+    // check if currUser is the author of the campground
+    const camp = await Campground.findByIdAndUpdate(id, {
         ...req.body.campground,
     }, {
         new: true
     })
-    const title = campground.title;
+    const title = camp.title;
     req.flash('success', `Successfully update the ${title}!`);
-    res.redirect(`/campgrounds/${campground._id}`);
+    res.redirect(`/campgrounds/${camp._id}`);
 }))
 
 // delete a specific campground through id searching
-router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
-    const { id } = req.params;
+router.delete('/:id', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
     await Campground.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted the campground!');
     res.redirect('/campgrounds');
