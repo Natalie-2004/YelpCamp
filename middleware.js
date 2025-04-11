@@ -1,5 +1,6 @@
 const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const ExpressError = require('./utilities/ExpressError');
+const Review = require('./models/review');
 const Campground = require('./models/campground');
 
 // middleware
@@ -19,6 +20,16 @@ const isAuthor = async (req, res, next) => {
     const campground = await Campground.findById(id);
     if (!campground.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to do that!');
+        return res.redirect(`/campgrounds/${id}`);
+    }
+    next();
+}
+
+const isReviewAuthor = async (req, res, next) => {
+    const { id, reviewId } = req.params;
+    const review = await Review.findById(reviewId);
+    if (!review) {
+        req.flash('error', 'Review not found!');
         return res.redirect(`/campgrounds/${id}`);
     }
     next();
@@ -52,4 +63,4 @@ const validateReview = (req, res, next) => {
     }
 }
 
-module.exports = {isLoggedIn, storeReturnTo, validateCampground, isAuthor, validateReview};
+module.exports = {isLoggedIn, storeReturnTo, validateCampground, isAuthor, validateReview, isReviewAuthor};

@@ -33,39 +33,43 @@
         </div>
 
         <div class="col-6">
-            <h2>Leave an Review</h2>
-            <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" novalidate
-                class="mb-3 validated-form">
-                <!-- TODO: Change this to STAR format using FontAwesome -->
-                <div class="mb-3">
-                    <label class="form-label" for="rating">Rating</label>
-                    <input type="range" class="form-range w-50" min="1" max="5" step="1" name="review[rating]" id="rating">
-                </div>
-                <div class="mb-3">
-                    <label for="body" class="form-label">Review</label>
-                    <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" placeholder="Share details of your own experience at this place" required></textarea>
-                    <div class="valid-feedback">
-                        Looks good!
+            <% if (currUser) { %>
+                <h2>Leave an Review</h2>
+                <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" novalidate
+                    class="mb-3 validated-form">
+                    <!-- TODO: Change this to STAR format using FontAwesome -->
+                    <div class="mb-3">
+                        <label class="form-label" for="rating">Rating</label>
+                        <input type="range" class="form-range w-50" min="1" max="5" step="1" name="review[rating]" id="rating">
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Review</label>
+                        <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" placeholder="Share details of your own experience at this place" required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            <% } %>
             <% for(let review of campground.reviews) { %>
                 <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Rating: <%= review.rating %>
-                        </h5>
-                        <p class="card-text">
-                            Review: <%= review.body %>
-                        </p>
-
+                  <div class="card-body">
+                    <h5 class="card-title">Rating: <%= review.rating %></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      By <%= review.author && review.author.username ? review.author.username : "Anonymous" %>
+                    </h6>
+                    <p class="card-text">Review: <%= review.body %></p>
+                    <!-- either the campground owner or the review’s author can delete a review -->
+                    <% if (currUser && review.author && (campground.author.equals(currUser._id) || review.author.equals(currUser._id))) { %>
                         <form action="/campgrounds/<%= campground.id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                          <button class="btn btn-sm btn-danger">Delete</button>
                         </form>
-                    </div>
+                    <% } %>
+                  </div>
                 </div>
-                <% } %>
+              <% } %>
+              
         </div>
     </div>

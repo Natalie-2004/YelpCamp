@@ -2,9 +2,9 @@
 
 ## Contents 🌈
 
-- [Yelp Camp 🏕️ (v5)](#yelp-camp-️-v5)
+- [Yelp Camp 🏕️ (v6)](#yelp-camp-️-v6)
   - [Contents 🌈](#contents-)
-  - [1. Features and Functionality [Change Log]✨](#1-features-and-functionality-)
+  - [1. Features and Functionality ✨](#1-features-and-functionality-)
     - [Update Log](#update-log)
       - [1.1 Updates](#11-updates)
       - [1.2 Updates](#12-updates)
@@ -60,11 +60,14 @@
 #### 1.6 Updates
 
 - Create User model for handle users' registration, login and logout process using passport.js
-- Implement express routes for users' reuqests
+- Implement express routes for users' requests
 - Restrict unlogin-users from modifying, commenting at campgrounds
-- Use middleware to execute login logic and presever url that unlogin-users previsouly visited after being redirected to login site
+- Use middleware to execute login logic and preserve url unlogin-users visited previously after being redirected to login site
 - Refactor narBar to carry out functionalities such as login, logout and register
-- Decroate corresponding forms to collect users credentials such as usernames, emails and passwords for verification
+- Decorate corresponding forms to collect users credentials such as usernames, emails and passwords for verification
+- Limit client-side access to unauthorised users
+- Enhance permission at both Campground and Review models
+- Display authors for campground and reviews
 
 ## 2. Technologies 🛠️
 
