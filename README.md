@@ -12,6 +12,7 @@
       - [1.4 Updates](#14-updates)
       - [1.5 Updates](#15-updates)
       - [1.6 Updates](#16-updates)
+      - [1.7 Updates](#17-updates)
   - [2. Technologies 🛠️](#2-technologies-️)
   - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
   - [4. Seeding the Database 🌱](#4-seeding-the-database-)
@@ -69,14 +70,17 @@
 - Enhance permission at both Campground and Review models
 - Display authors for campground and reviews
 
+#### 1.7 Updates
+
+- Refactor routes to adapt MVC pattern
+
 ## 2. Technologies 🛠️
 
-- Frontend: HTML/CSS, JS, EJS
+- Frontend: HTML/CSS/JS
 - Backend: JS, Node
-- Frontend: HTML/CSS, JavaScript, EJS
 - Backend: JavaScript, NodeJS
 - Database: MongoDB
-- Library/Model: BootStrap, Express, Mongoose
+- Library/Model: MVC, BootStrap, Express, Mongoose
 - Platform: Git, VS Code, WebStorm
 
 ## 3. Setup Instructions ⚙️
