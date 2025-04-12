@@ -72,7 +72,9 @@
 
 #### 1.7 Updates
 
-- Refactor routes to adapt MVC pattern
+- Refactor routes (campgrounds, reviews, users) to adapt MVC pattern
+- Centralise routes
+- Use star animations instead of slicing window
 
 ## 2. Technologies 🛠️
 
