@@ -4,50 +4,22 @@ const User = require('../models/user.js');
 const catchAsync = require('../utilities/catchAsync');
 const passport = require('passport');
 const { storeReturnTo } = require('../middleware');
+const users = require('../controllers/users.js');
 
-routers.get('/register', (req, res) => {
-    res.render('users/register');
-})
+routers.get('/register', users.renderRegister)
 
-routers.post('/register', catchAsync(async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
-        const newUser = new User({ username, email });
-        const registerUser = await User.register(newUser, password);
-        // login user immediately after registration success -> authenticate is not suitable as we obviously can't access new user's identification
-        // this is callback fn
-        req.login(registerUser, err => {
-            if (err) return next(err);
-            req.flash('success', 'Welcome to Yelp Camp!');
-            res.redirect('/campgrounds');
-        });
-    } catch (error) {
-        req.flash('error', error.message);
-        return res.redirect('/register');
-    }
-}))
+routers.post('/register', catchAsync(users.registerUser))
 
-routers.get('/login', (req, res) => {
-    res.render('users/login');
-})
+routers.get('/login', users.renderLogin)
 
 // https://www.passportjs.org/packages/passport-local/
 // storeReturnTo saves the returnTo value from session to res.locals,
 // as after login req.session will be clear and now able to use preserved value to redirect
-routers.post('/login', storeReturnTo, passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
-    req.flash('success', `Welcome back! ${req.user.username}`);
-    res.redirect(res.locals.returnTo || '/campgrounds');
-})
+routers.post('/login', storeReturnTo, 
+    passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), 
+    users.loginUser
+);
 
-routers.get('/logout', (req, res, next) => {
-    req.logout(function (err) {
-        if (err) {
-            return next(err);
-        } else {
-            req.flash('success', 'Logout! Good day!');
-            res.redirect(`/campgrounds`);
-        }
-    })
-})
+routers.get('/logout', users.logoutUser);
 
 module.exports = routers;
