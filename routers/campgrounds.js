@@ -3,11 +3,17 @@ const router = express.Router();
 const catchAsync = require('../utilities/catchAsync');
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
 const campgrounds = require('../controllers/campgrounds');
+const multer = require('multer');
+const { storage } = require('../cloudinary'); // automatically look for index.js file
+const upload = multer({ storage });
 
 // group all the common routes together
 router.route('/')
     .get(catchAsync(campgrounds.index))
-    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.create))
+    .post(upload.array('image'), (req, res) => {
+        console.log(req.body, req.files);
+        res.send('it worked!');
+    })
 
 // new page, need to go before show page route
 router.get('/new', isLoggedIn, campgrounds.new);

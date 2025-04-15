@@ -1,2 +1,24 @@
+# Dependencies
 node_modules/
-*.yaml
+package-lock.json
+
+# Env files
+.env
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Build / Coverage
+dist/
+build/
+coverage/
+.nyc_output/
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+
+# OS-specific
+.DS_Store
