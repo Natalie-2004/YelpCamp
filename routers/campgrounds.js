@@ -10,10 +10,7 @@ const upload = multer({ storage });
 // group all the common routes together
 router.route('/')
     .get(catchAsync(campgrounds.index))
-    .post(upload.array('image'), (req, res) => {
-        console.log(req.body, req.files);
-        res.send('it worked!');
-    })
+    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.create));
 
 // new page, need to go before show page route
 router.get('/new', isLoggedIn, campgrounds.new);

@@ -14,8 +14,12 @@ module.exports.create = async (req, res) => {
     // by default .body is empty
     // .Campground since it's grouped at ejs
     const campgroundNew = new Campground(req.body.campground);
+    campgroundNew.images = req.files.map(f => ({
+        url: f.path,
+        filename: f.filename
+    }));
+    console.log(campgroundNew);
     campgroundNew.author = req.user._id;
-    // campgroundNew.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     await campgroundNew.save();
     req.flash('success', 'Successfully post a new campground!');
     res.redirect(`/campgrounds/${campgroundNew._id}`);
