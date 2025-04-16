@@ -18,7 +18,6 @@ module.exports.create = async (req, res) => {
         url: f.path,
         filename: f.filename
     }));
-    console.log(campgroundNew);
     campgroundNew.author = req.user._id;
     await campgroundNew.save();
     req.flash('success', 'Successfully post a new campground!');
@@ -60,7 +59,15 @@ module.exports.update = async (req, res) => {
     }, {
         new: true
     })
+    // turn into array
+    const imgs = req.files.map(f => ({
+        url: f.path,
+        filename: f.filename
+    }));
+    camp.images.push(...imgs);
     const title = camp.title;
+
+    await camp.save();
     req.flash('success', `Successfully update the ${title}!`);
     res.redirect(`/campgrounds/${camp._id}`);
 }

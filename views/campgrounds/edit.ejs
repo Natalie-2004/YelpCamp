@@ -4,7 +4,7 @@
         <div class="col-6 offset-3">
             <!-- as html don't support put, we need to override it with PUT at app.js-->
             <form action="/campgrounds/<%= campground._id %>/?_method=PUT" method="POST" novalidate
-                class="validated-form">
+                class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">Title</label>
                     <input class="form-control" type="text" id="title" name="campground[title]"
@@ -21,14 +21,9 @@
                         Looks good!
                     </div>
                 </div>
-                <!-- TODO: change to upload image -->
                 <div class="mb-3">
-                    <label class="form-label">Image URL</label>
-                    <input class="form-control" type="text" id="image" name="campground[image]"
-                        value="<%= campground.image %>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                    <label class="form-label">Upload Images</label><p></p>
+                    <input type="file" name="image" id="image" multiple>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Campground Price</label>

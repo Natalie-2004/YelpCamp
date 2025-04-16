@@ -20,7 +20,7 @@ router.get('/new', isLoggedIn, campgrounds.new);
 // delete a specific campground through id searching
 router.route('/:id')
     .get(catchAsync(campgrounds.show))
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.update))
+    .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.update))
     .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.delete))
 
 // edit page -> find and enter the target page to update

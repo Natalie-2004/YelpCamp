@@ -26,7 +26,6 @@
             </div>
 
             <div class="card mb-5">
-                <!-- TODO: functionality that push new uploaded images after created -->
                 <div class="card-body">
                     <h5 class="card-title">
                         <%= campground.title %>
@@ -44,17 +43,24 @@
                     <li class="list-group-item">Online price: $<%= campground.price %>
                     </li>
                 </ul>
-                <% if (currUser && campground.author.equals(currUser._id)) {%>
-                    <div class="card-body">
-                        <a class="card-link btn btn-success" href="/campgrounds/<%= campground._id %>/edit">Edit
-                            Campground</a>
-                        <form class="d-inline" action="/campgrounds/<%= campground._id %>/?_method=DELETE"
-                            method="POST">
-                            <button class="btn btn-danger">Delete this Campground</button>
-                        </form>
-                        <a class="card-link btn btn-warning" href="/campgrounds">Back to Index Page</a>
+                <% if (currUser && campground.author.equals(currUser._id)) { %>
+                    <div class="px-3 mb-2 mt-2">
+                        <div class="row g-2 flex">
+                            <div class="col-6 ml-2">
+                                <a class="btn btn-success w-100" href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
+                            </div>
+                            <div class="col-6">
+                                <form action="/campgrounds/<%= campground._id %>/?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger w-100">Delete this Campground</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <% } %>
+                <% } %>
+                
+                <div class="px-3 pb-2">
+                        <a class="btn btn-warning w-100" href="/campgrounds">Back to Index Page</a>
+                </div>
             </div>
         </div>
 
