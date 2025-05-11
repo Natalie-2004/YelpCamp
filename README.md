@@ -13,7 +13,7 @@
       - [1.5 Updates](#15-updates)
       - [1.6 Updates](#16-updates)
       - [1.7 Updates](#17-updates)
-  - [2. Technologies 🛠️](#2-technologies-️)
+  - [2. Skill Stacks 🛠️](#2-skill-stacks-️)
   - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
   - [4. Seeding the Database 🌱](#4-seeding-the-database-)
   - [5. Usage 🚀](#5-usage-)
@@ -79,7 +79,7 @@
 - Display uploaded images dynamically in a carousel UI on the client-side
 - Enhance UI for a better user experience
 
-## 2. Technologies 🛠️
+## 2. Skill Stacks 🛠️
 
 - Frontend: HTML/CSS/Javascript, EJS
 - Backend: JavaScript, Node.js
