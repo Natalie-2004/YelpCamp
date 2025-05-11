@@ -74,12 +74,11 @@
 
 - Refactor routes (campgrounds, reviews, users) to adapt MVC pattern
 - Centralise routes
-- Use star animations instead of slicing window
+- Use star animations to replace slicing window
 
 ## 2. Technologies 🛠️
 
-- Frontend: HTML/CSS/JS
-- Backend: JS, Node
+- Frontend: HTML/CSS/JS, JavaScript
 - Backend: JavaScript, NodeJS
 - Database: MongoDB
 - Library/Model: MVC, BootStrap, Express, Mongoose
