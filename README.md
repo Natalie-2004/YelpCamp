@@ -13,7 +13,7 @@
       - [1.5 Updates](#15-updates)
       - [1.6 Updates](#16-updates)
       - [1.7 Updates](#17-updates)
-  - [2. Technologies 🛠️](#2-technologies-️)
+  - [2. Skill Stacks 🛠️](#2-skill-stacks-️)
   - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
   - [4. Seeding the Database 🌱](#4-seeding-the-database-)
   - [5. Usage 🚀](#5-usage-)
@@ -72,16 +72,19 @@
 
 #### 1.7 Updates
 
-- Refactor routes (campgrounds, reviews, users) to adapt MVC pattern
-- Centralise routes
-- Use star animations to replace slicing window
+- Refactor and centralise routes (campgrounds, reviews, users) to adapt MVC pattern
+- Implemented Multer for handling multipart/form-data in Express
+- Register and configure Cloudinary for images, storing cloud images at database, and ensuring synchronization between Cloudinary and MongoDB
+- Enable image uploads and deletion on client-side
+- Display uploaded images dynamically in a carousel UI on the client-side
+- Enhance UI for a better user experience
 
-## 2. Technologies 🛠️
+## 2. Skill Stacks 🛠️
 
-- Frontend: HTML/CSS/JS, JavaScript
-- Backend: JavaScript, NodeJS
-- Database: MongoDB
-- Library/Model: MVC, BootStrap, Express, Mongoose
+- Frontend: HTML/CSS/Javascript, EJS
+- Backend: JavaScript, Node.js
+- Database: Mongoose
+- Library/Model: MVC, BootStrap, Express.js, Mongoose
 - Platform: Git, VS Code, WebStorm
 
 ## 3. Setup Instructions ⚙️
