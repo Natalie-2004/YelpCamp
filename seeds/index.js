@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cities_au = require('./cities_au');
 const Campground = require('../models/campground');
 const {places, descriptors} = require('./seedHelpers');
+const { cloudinaryImages } = require('../cloudinary');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 
@@ -22,19 +23,19 @@ const randArr = (array) => {
 const seedDb = async() => {
     await Campground.deleteMany({});
     
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
         const rand = Math.floor(Math.random() * cities_au.length);
         const price = Math.floor(Math.random() * 500) + 100;
         const camp = new Campground({
             author: '67d54dfad697ed21fed2641a', // by default set z5453932 as the owner of all accounts
             location: `${cities_au[rand].city}, ${cities_au[rand].state}`,
             title: `${randArr(descriptors)} ${randArr(places)}`,
-            image: `https://picsum.photos/400?random=${Math.random()}`,
+            images: [cloudinaryImages[i]],
             description: `Nestled amidst lush greenery and serene landscapes, this campground offers a perfect escape for nature enthusiasts. With well-maintained sites, modern amenities, and easy access to hiking trails and a tranquil lake, it's an ideal spot for both relaxation and adventure.`,
             price
         })
 
-        // save into database for each seperate camp object created
+        // save into database for each separate camp object created
         await camp.save();
     }
 }

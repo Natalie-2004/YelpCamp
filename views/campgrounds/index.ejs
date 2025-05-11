@@ -9,7 +9,11 @@
         <div class="row">
             <!-- 4 units out of 12 units, 1/3 out of row -->
             <div class="col-md-4">
-                <img class="img-fluid" alt="" src="<%= campground.image %>">
+                <% if (campground.images && campground.images.length > 0) { %>
+                    <img class="img-fluid" alt="" src="<%= campground.images[0].url %>">
+                <% } else { %>
+                    <img class="img-fluid" alt="Placeholder" src="/images/default.jpg">
+                <% } %>                
             </div>
             <div class="col-md-8">
                 <div class="card-body">

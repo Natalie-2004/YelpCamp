@@ -4,7 +4,7 @@
         <div class="col-6 offset-3">
             <!-- as html don't support put, we need to override it with PUT at app.js-->
             <form action="/campgrounds/<%= campground._id %>/?_method=PUT" method="POST" novalidate
-                class="validated-form">
+                class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">Title</label>
                     <input class="form-control" type="text" id="title" name="campground[title]"
@@ -21,15 +21,12 @@
                         Looks good!
                     </div>
                 </div>
-                <!-- TODO: change to upload image -->
-                <div class="mb-3">
-                    <label class="form-label">Image URL</label>
-                    <input class="form-control" type="text" id="image" name="campground[image]"
-                        value="<%= campground.image %>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="image" name="image" multiple>
+                    <label class="input-group-text" name="image" for="image">Upload More Images</label>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Campground Price</label>
                     <div class="input-group">
@@ -50,6 +47,15 @@
                     <div class="valid-feedback">
                         Looks good!
                     </div>
+                </div>
+                <div class="mb-3">
+                    <% campground.images.forEach(function(img, i) {%>
+                        <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail">
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="img-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                        </div>
+                        <label for="img-<%= i %>">Delete?</label>
+                        <% }) %>
                 </div>
                 <button class="btn btn-info">Update Campground</button>
                 <a class="btn btn-warning" href="/campgrounds">Back To Index Page</a>

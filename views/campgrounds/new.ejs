@@ -5,7 +5,7 @@
         <!-- alternate way placing at the middle -> extract the middle 6 units out of 12 -->
         <div class="col-6 offset-3">
             <!-- 'novalidate' in order for bootstrap to takeover -->
-            <form action="/campgrounds" method="POST" novalidate class="validated-form">
+            <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">Title</label>
                     <input class="form-control" type="text" id="title" name="campground[title]" required>
@@ -20,14 +20,12 @@
                         Looks good!
                     </div>
                 </div>
-                <!-- TODO: to upload image via select document-->
-                <div class="mb-3">
-                    <label class="form-label">Image URL</label>
-                    <input class="form-control" type="text" id="image" name="campground[image]" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="image" name="image" multiple>
+                    <label class="input-group-text" for="image">Upload Images</label>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Campground Price</label>
                     <div class="input-group">
