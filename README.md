@@ -72,16 +72,19 @@
 
 #### 1.7 Updates
 
-- Refactor routes (campgrounds, reviews, users) to adapt MVC pattern
-- Centralise routes
-- Use star animations to replace slicing window
+- Refactor and centralise routes (campgrounds, reviews, users) to adapt MVC pattern
+- Implemented Multer for handling multipart/form-data in Express
+- Register and configure Cloudinary for images, storing cloud images at database, and ensuring synchronization between Cloudinary and MongoDB
+- Enable image uploads and deletion on client-side
+- Display uploaded images dynamically in a carousel UI on the client-side
+- Enhance UI for a better user experience
 
 ## 2. Technologies 🛠️
 
-- Frontend: HTML/CSS/JS, JavaScript
-- Backend: JavaScript, NodeJS
-- Database: MongoDB
-- Library/Model: MVC, BootStrap, Express, Mongoose
+- Frontend: HTML/CSS/Javascript, EJS
+- Backend: JavaScript, Node.js
+- Database: Mongoose
+- Library/Model: MVC, BootStrap, Express.js, Mongoose
 - Platform: Git, VS Code, WebStorm
 
 ## 3. Setup Instructions ⚙️
