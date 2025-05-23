@@ -65,8 +65,8 @@ const cloudinaryImages = [
         url: `https://res.cloudinary.com/dduweiukj/image/upload/v1744718252/camp14_ump3il.jpg`,
         filename: `YelpCamp/camp14_ump3il`
     }, {
-        url: `https://res.cloudinary.com/dduweiukj/image/upload/v1744718252/camp15_qqm1xg.jpg`,
-        filename: `YelpCamp/camp15_qqm1xg`
+        url: `https://res.cloudinary.com/dduweiukj/image/upload/v1746963093/YelpCamp/tdrxnsqdcwuqxfhndhv4.jpg`,
+        filename: `YelpCamp/camp15`
     }, {
         url: `https://res.cloudinary.com/dduweiukj/image/upload/v1744718253/camp16_ccbjst.jpg`,
         filename: `YelpCamp/camp16_uxxj2y`
