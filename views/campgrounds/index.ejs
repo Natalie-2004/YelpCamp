@@ -1,4 +1,9 @@
 <% layout('layout/boilerplate') %>
+<div id="map" style="width: 100%; height: 500px;"></div>
+<script> 
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+</script>
+
 <h1>All Campgrounds</h1>
 <!-- listing campground titles and superlink that can direct to the show page -->
 <% for (let campground of campgrounds) {%>
@@ -26,3 +31,5 @@
         </div>
     </div>
 <%} %>
+
+<script src="/js/clusterMap.js"></script>
