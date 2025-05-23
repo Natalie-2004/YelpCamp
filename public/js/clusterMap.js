@@ -3,7 +3,7 @@ mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
     container: 'map',
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/mapbox/dark-v11',
+    style: 'mapbox://styles/mapbox/streets-v10',
     center: [134.491, -25.736],
     zoom: 3
 });
@@ -28,26 +28,31 @@ map.on('load', () => {
         paint: {
             // Use step expressions (https://docs.mapbox.com/style-spec/reference/expressions/#step)
             // with three steps to implement three types of circles:
-            //   * Blue, 20px circles when point count is less than 100
-            //   * Yellow, 30px circles when point count is between 100 and 750
-            //   * Pink, 40px circles when point count is greater than or equal to 750
+            //   * yellow, 20px circles when point count is less than 15
+            //   * orange, 25px circles when point count is between 15 and 30
+            //   * red, 30px circles when point count is greater than or equal to 30
+            //   * purple, 50px circles when point count is greater than or equal to 50
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                '#51bbd6',
-                100,
-                '#f1f075',
-                750,
-                '#f28cb1'
+                'yellow',
+                15,
+                'orange',
+                30,
+                'red',
+                50,
+                'purple'
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
                 20,
-                100,
+                15,
+                25,
                 30,
-                750,
-                40
+                30,
+                50,
+                50
             ]
         }
     });
@@ -70,7 +75,7 @@ map.on('load', () => {
         source: 'campgrounds',
         filter: ['!', ['has', 'point_count']],
         paint: {
-            'circle-color': '#11b4da',
+            'circle-color': 'green',
             'circle-radius': 10,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
@@ -103,23 +108,12 @@ map.on('load', () => {
     // description HTML from its properties.
     map.on('click', 'unclustered-point', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
-        const mag = e.features[0].properties.mag;
-        const tsunami =
-            e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
-
-        // Ensure that if the map is zoomed out such that
-        // multiple copies of the feature are visible, the
-        // popup appears over the copy being pointed to.
-        if (['mercator', 'equirectangular'].includes(map.getProjection().name)) {
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-        }
+        const popUpMarkup = e.features[0].properties.popUpMarkup;
 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML(
-                `magnitude: ${mag}<br>Was there a tsunami?: ${tsunami}`
+                popUpMarkup
             )
             .addTo(map);
     });
