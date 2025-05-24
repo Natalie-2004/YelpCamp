@@ -16,12 +16,14 @@
         <div class="mb-auto mt-auto">
             <% if (currUser) { %>
                 <h1>
-                    <h1 class="animate-fadeInUp text-4xl">Hi, <%= currUser.username%>, Welcome Back To YELP CAMP!</h1>
+                    <h1 class="animate-fadeInUp text-4xl">Hi, <%= currUser.username%>, Welcome Back!</h1>
                     <subheading class="animate-fadeInUp" style="animation-delay: 0.3s;">Find the perfect spot. Rate your favorite camps. Share your adventure.</subheading>
                     <div class="mt-3">
-                        <button type="button" class="btn btn-outline-primary btn-lg animate-fadeInUp" style="animation-delay: 0.6s;"><a href="/campgrounds"
-                            style="text-decoration: none; color: inherit">Head To Campgrounds</a></button>
-                        <button type="button" class="btn btn-outline-primary btn-lg animate-fadeInUp" style="animation-delay: 0.9s;"><a href="/logout"
+                        <button type="button" class="btn btn-outline-primary btn-lg animate-fadeInUp mx-3" style="animation-delay: 0.5s;"><a href="/campgrounds"
+                            style="text-decoration: none; color: inherit">Campgrounds</a></button>
+                        <button type="button" class="btn btn-outline-primary btn-lg animate-fadeInUp mx-3" style="animation-delay: 0.7s;"><a href="/campgrounds/new"
+                                style="text-decoration: none; color: inherit">Create Campgrounds</a></button>
+                        <button type="button" class="btn btn-outline-primary btn-lg animate-fadeInUp mx-3" style="animation-delay: 0.9s;"><a href="/logout"
                                 style="text-decoration: none; color: inherit">Log Out</a></button>
                     </div>
                 </h1>
