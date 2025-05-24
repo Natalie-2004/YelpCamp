@@ -1,11 +1,15 @@
 mapboxgl.accessToken = mapToken;
 
 const map = new mapboxgl.Map({
-    container: 'map',
+    container: 'cluster-map',
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/mapbox/streets-v10',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [134.491, -25.736],
     zoom: 3
+});
+
+map.on('load', function () {
+    map.resize();
 });
 
 map.on('load', () => {
@@ -28,31 +32,26 @@ map.on('load', () => {
         paint: {
             // Use step expressions (https://docs.mapbox.com/style-spec/reference/expressions/#step)
             // with three steps to implement three types of circles:
-            //   * yellow, 20px circles when point count is less than 15
-            //   * orange, 25px circles when point count is between 15 and 30
-            //   * red, 30px circles when point count is greater than or equal to 30
-            //   * purple, 50px circles when point count is greater than or equal to 50
+            //   * color1, 15px circles when point count is less than 15
+            //   * color2, 20px circles when point count is between 15 and 30
+            //   * color3, 25px circles when point count is greater than or equal to 30
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                'yellow',
-                15,
-                'orange',
+                '#00BCD4',
+                10,
+                '#2196F3',
                 30,
-                'red',
-                50,
-                'purple'
+                '#3F51B5',
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                20,
                 15,
-                25,
+                10,
+                20,
                 30,
-                30,
-                50,
-                50
+                25
             ]
         }
     });

@@ -4,8 +4,10 @@
     const campgrounds = {features: <%- JSON.stringify(campgrounds) %>};
 </script>
 
-<div id="map" style="width: 100%; height: 500px;"></div>
 
+<div id="cluster-map"></div>
+
+<div class="container">
 <h1>All Campgrounds</h1>
 <!-- listing campground titles and superlink that can direct to the show page -->
 <% for (let campground of campgrounds) {%>
@@ -33,5 +35,6 @@
         </div>
     </div>
 <%} %>
+</div>
 
 <script src="/js/clusterMap.js"></script>
