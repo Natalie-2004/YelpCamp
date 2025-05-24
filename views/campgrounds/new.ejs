@@ -10,28 +10,28 @@
                     <!-- 'novalidate' in order for bootstrap to takeover -->
                     <form action="/campgrounds" method="POST" novalidate class="validated-form"
                         enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label class="form-label animate-fadeInUp" style="animation-delay: 0.3s;">Title</label>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.3s;">
+                            <label class="form-label">Title</label>
                             <input class="form-control" type="text" id="title" name="campground[title]" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label animate-fadeInUp" style="animation-delay: 0.4s;">Location</label>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.4s;">
+                            <label class="form-label">Location</label>
                             <input class="form-control" type="text" id="location" name="campground[location]" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
                         </div>
 
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 animate-fadeInUp" style="animation-delay: 0.5s;">
                             <input type="file" class="form-control" id="image" name="image" multiple>
-                            <label class="input-group-text animate-fadeInUp" style="animation-delay: 0.5s;" for="image">Upload Images</label>
+                            <label class="input-group-text" for="image">Upload Images</label>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label animate-fadeInUp" style="animation-delay: 0.6s;">Campground Price</label>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.6s;">
+                            <label class="form-label">Campground Price</label>
                             <div class="input-group">
                                 <span class="input-group-text" id="price-label">$</span>
                                 <input type="number" min="0" class="form-control" id="price-label" placeholder="0.00"
@@ -42,8 +42,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label animate-fadeInUp" style="animation-delay: 0.7s;">Description</label>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.6s;">
+                            <label class="form-label" style="animation-delay: 0.7s;">Description</label>
                             <textarea class="form-control" type="text" id="description" name="campground[description]"
                                 required></textarea>
                             <div class="valid-feedback">
