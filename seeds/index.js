@@ -23,16 +23,24 @@ const randArr = (array) => {
 const seedDb = async() => {
     await Campground.deleteMany({});
     
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 100; i++) {
         const rand = Math.floor(Math.random() * cities_au.length);
         const price = Math.floor(Math.random() * 500) + 100;
+        const long = cities_au[rand].longitude;
+        const lat = cities_au[rand].latitude;
+        const image = randArr(cloudinaryImages);
+
         const camp = new Campground({
             author: '67d54dfad697ed21fed2641a', // by default set z5453932 as the owner of all accounts
             location: `${cities_au[rand].city}, ${cities_au[rand].state}`,
             title: `${randArr(descriptors)} ${randArr(places)}`,
-            images: [cloudinaryImages[i]],
+            images: [image],
             description: `Nestled amidst lush greenery and serene landscapes, this campground offers a perfect escape for nature enthusiasts. With well-maintained sites, modern amenities, and easy access to hiking trails and a tranquil lake, it's an ideal spot for both relaxation and adventure.`,
-            price
+            price,
+            geometry: {
+                type: 'Point',
+                coordinates: [long, lat]
+            }
         })
 
         // save into database for each separate camp object created

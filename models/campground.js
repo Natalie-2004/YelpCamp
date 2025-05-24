@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
-const Review = require('./review')
+const Review = require('./review');
+const { campgroundSchema } = require('../schemas');
 const Schema = mongoose.Schema; // shortcut for 'mongoose.Schema'
 
 // virtual property for image
@@ -14,9 +15,23 @@ ImageSchema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload', '/upload/w_300');
 });
 
+// toJSON is a method of mongoose.Schema
+const opts = { toJSON: { virtuals: true } };
+
 const CampgroundSchema = new Schema ({
     title: String,
     images: [ImageSchema],
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     price: Number,
     description: String,
     location: String,
@@ -32,7 +47,7 @@ const CampgroundSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
-});
+}, opts);
 
 CampgroundSchema.post('findOneAndDelete', async function(doc) {
     if (doc) {
@@ -44,5 +59,15 @@ CampgroundSchema.post('findOneAndDelete', async function(doc) {
         })
     }
 })
+
+// properties : {
+//     popUpMarkup: 'anchor tag',
+// }
+CampgroundSchema.virtual('properties.popUpMarkup').get(function() {
+    return `
+    <strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
+    <p>${this.location}</p>
+    `
+});
 
 module.exports = mongoose.model('Campground', CampgroundSchema);

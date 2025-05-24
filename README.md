@@ -1,8 +1,8 @@
-# Yelp Camp 🏕️ (v6)
+# Yelp Camp 🏕️ (v8)
 
 ## Contents 🌈
 
-- [Yelp Camp 🏕️ (v6)](#yelp-camp-️-v6)
+- [Yelp Camp 🏕️ (v8)](#yelp-camp-️-v8)
   - [Contents 🌈](#contents-)
   - [1. Features and Functionality ✨](#1-features-and-functionality-)
     - [Update Log](#update-log)
@@ -13,6 +13,7 @@
       - [1.5 Updates](#15-updates)
       - [1.6 Updates](#16-updates)
       - [1.7 Updates](#17-updates)
+      - [1.8 Updates](#18-updates)
   - [2. Skill Stacks 🛠️](#2-skill-stacks-️)
   - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
   - [4. Seeding the Database 🌱](#4-seeding-the-database-)
@@ -73,11 +74,19 @@
 #### 1.7 Updates
 
 - Refactor and centralise routes (campgrounds, reviews, users) to adapt MVC pattern
-- Implemented Multer for handling multipart/form-data in Express
+- Implement Multer for handling multipart/form-data in Express
 - Register and configure Cloudinary for images, storing cloud images at database, and ensuring synchronization between Cloudinary and MongoDB
 - Enable image uploads and deletion on client-side
 - Display uploaded images dynamically in a carousel UI on the client-side
 - Enhance UI for a better user experience
+
+#### 1.8 Updates
+
+- Implement geocoding for campground locations and integrated GeoJSON for spatial data handling
+- Display interactive maps centered on individual campgrounds
+- Create cluster maps to group nearby campgrounds, which adapted from MapBox
+- Fix seed data issues to ensure accurate map rendering, generating more campgrounds
+- Style campground pages and user pages, customise map popups for better user interaction
 
 ## 2. Skill Stacks 🛠️
 

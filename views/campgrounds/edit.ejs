@@ -1,64 +1,73 @@
 <% layout('layout/boilerplate') %>
-    <div class="row">
-        <h1 class="text-center">Edit Campground</h1>
-        <div class="col-6 offset-3">
-            <!-- as html don't support put, we need to override it with PUT at app.js-->
-            <form action="/campgrounds/<%= campground._id %>/?_method=PUT" method="POST" novalidate
-                class="validated-form" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input class="form-control" type="text" id="title" name="campground[title]"
-                        value="<%= campground.title %>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Location</label>
-                    <input class="form-control" type="text" id="location" name="campground[location]"
-                        value="<%= campground.location %>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
+    <link rel="stylesheet" href="/css/app.css">
 
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="image" name="image" multiple>
-                    <label class="input-group-text" name="image" for="image">Upload More Images</label>
-                </div>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="card shadow text-white" style="background: transparent; border: none; width: 65rem;">
+            <h1 class="card-title animate-fadeInUp text-center" style="animation-delay: 0.2s;">Edit Campground</h1>
+            <div class="card-body">
+                <div class="row col-6 offset-3">
+                    <!-- as html don't support put, we need to override it with PUT at app.js-->
+                    <form action="/campgrounds/<%= campground._id %>/?_method=PUT" method="POST" novalidate
+                        class="validated-form" enctype="multipart/form-data">
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.3s;">
+                            <label class="form-label">Title</label>
+                            <input class="form-control" type="text" id="title" name="campground[title]"
+                                value="<%= campground.title %>" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.4s;">
+                            <label class="form-label">Location</label>
+                            <input class="form-control" type="text" id="location" name="campground[location]"
+                                value="<%= campground.location %>" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Campground Price</label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="price-label">$</span>
-                        <input type="number" min="0" class="form-control" id="price-label" placeholder="0.00"
-                            aria-label="Amount (to the nearest dollar)" name="campground[price]"
-                            value="<%= campground.price %>" required>
-                        <span class="input-group-text" id="price-label">.00</span>
-                        <div class="valid-feedback">
-                            Looks good!
+                        <div class="input-group mb-3 animate-fadeInUp" style="animation-delay: 0.5s;">
+                            <input type="file" class="form-control" id="image" name="image" multiple>
+                            <label class="input-group-text" name="image" for="image">Upload More Images</label>
                         </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" type="text" id="description" name="campground[description]"
-                        required><%= campground.description %></textarea>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <% campground.images.forEach(function(img, i) {%>
-                        <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail">
-                        <div class="form-check-inline">
-                            <input type="checkbox" id="img-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.6s;">
+                            <label class="form-label">Campground Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="price-label">$</span>
+                                <input type="number" min="0" class="form-control" id="price-label" placeholder="0.00"
+                                    aria-label="Amount (to the nearest dollar)" name="campground[price]"
+                                    value="<%= campground.price %>" required>
+                                <span class="input-group-text" id="price-label">.00</span>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
                         </div>
-                        <label for="img-<%= i %>">Delete?</label>
-                        <% }) %>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.7s;">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" type="text" id="description" name="campground[description]"
+                                required><%= campground.description %></textarea>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3 animate-fadeInUp" style="animation-delay: 0.8s;">
+                            <% campground.images.forEach(function(img, i) {%>
+                                <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail" style="max-height: 200px;">
+                                <div class="form-check-inline">
+                                    <input type="checkbox" id="img-<%= i %>" name="deleteImages[]"
+                                        value="<%= img.filename %>">
+                                </div>
+                                <label for="img-<%= i %>">Delete?</label>
+                                <% }) %>
+                        </div>
+                        <div class="d-flex justify-content-between animate-fadeInUp" style="animation-delay: 0.9s;">
+                            <button class="btn btn-outline-info">Update Campground</button>
+                            <button class="btn btn-outline-warning"><a href="/campgrounds" style="text-decoration: none; color: inherit">Back To Index Page</a></button>
+                        </div>
+                    </form>
                 </div>
-                <button class="btn btn-info">Update Campground</button>
-                <a class="btn btn-warning" href="/campgrounds">Back To Index Page</a>
-            </form>
+            </div>
         </div>
     </div>
