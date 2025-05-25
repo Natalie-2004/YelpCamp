@@ -14,6 +14,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const Users = require('./models/user.js');
+const mongoSanitise = require('express-mongo-sanitize');
 
 const campgroundsRoutes = require('./routers/campgrounds.js');
 const reviewsRoutes = require('./routers/reviews.js');
@@ -39,6 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method')); // parse in query string
 app.use(express.static(path.join(__dirname, 'public'))); // server static file for favicon
 app.use(flash());
+app.use(mongoSanitise());
 
 const sessionConfig = {
     secret: 'password',
