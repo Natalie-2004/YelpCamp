@@ -14,10 +14,10 @@
             <!-- 4 units out of 12 units, 1/3 out of row -->
             <div class="col-md-4">
                 <% if (campground.images && campground.images.length > 0) { %>
-                    <img class="img-fluid" alt="" src="<%= campground.images[0].url %>">
+                    <img crossorigin="anonymous" class="img-fluid" alt="" src="<%= campground.images[0].url %>">
                 <% } else { %>
                     <!-- defualt images -->
-                    <img class="img-fluid" alt="Placeholder" src="https://res.cloudinary.com/dduweiukj/image/upload/v1744718252/camp14_ump3il.jpg">
+                    <img crossorigin="anonymous" class="img-fluid" alt="Placeholder" src="https://res.cloudinary.com/dduweiukj/image/upload/v1744718252/camp14_ump3il.jpg">
                 <% } %>                
             </div>
             <div class="col-md-8">
