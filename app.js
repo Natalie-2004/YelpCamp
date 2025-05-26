@@ -162,8 +162,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-// dynamic port for EB production
-const port = process.env.PORT || 3000;
+// dynamic port for EB production, default is 8080 on EB
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Serving on port ${port}`);
 });
