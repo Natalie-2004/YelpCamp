@@ -1,12 +1,16 @@
-// to seed database, replace new campgrounds by deteling prev ones
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
 
+// to seed database, replace new campgrounds by deteling prev ones
 const mongoose = require('mongoose');
 const cities_au = require('./cities_au');
 const Campground = require('../models/campground');
 const {places, descriptors} = require('./seedHelpers');
 const { cloudinaryImages } = require('../cloudinary');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
+// mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
+mongoose.connect(process.env.MONGO_URL);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
