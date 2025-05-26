@@ -31,7 +31,7 @@ const seedDb = async() => {
         const image = randArr(cloudinaryImages);
 
         const camp = new Campground({
-            author: '67d54dfad697ed21fed2641a', // by default set z5453932 as the owner of all accounts
+            author: '67f9da2b6473b64bfc4fadca', // by default set testUser as the admin account
             location: `${cities_au[rand].city}, ${cities_au[rand].state}`,
             title: `${randArr(descriptors)} ${randArr(places)}`,
             images: [image],

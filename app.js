@@ -3,6 +3,8 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
+const mongoUrl = process.env.MONGO_URL;
+
 const express = require('express')
 const path = require('path');
 const methodOverride = require('method-override');
@@ -11,6 +13,7 @@ const ejsMate = require('ejs-mate');
 const flash = require('connect-flash');
 const ExpressError = require('./utilities/ExpressError');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const Users = require('./models/user.js');
@@ -21,7 +24,8 @@ const campgroundsRoutes = require('./routers/campgrounds.js');
 const reviewsRoutes = require('./routers/reviews.js');
 const usersRoutes = require('./routers/users.js');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
+// mongodb://localhost:27017/yelp-camp
+mongoose.connect('mongodb://localhost:27017/yelp-camp');
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
@@ -44,7 +48,21 @@ app.use(flash());
 app.use(mongoSanitise());
 app.use(helmet());
 
+const store = MongoStore.create({
+    mongoUrl: 'mongodb://localhost:27017/yelp-camp',
+    secret: 'password',
+    touchAfter: 24 * 3600, // time in seconds
+    crypto: {
+        secret: 'password'
+    }
+});
+
+store.on('error', function (e) {
+    console.log('SESSION STORE ERROR', e);
+});
+
 const sessionConfig = {
+    store,
     name: 'session',
     secret: 'password',
     resave: false,
