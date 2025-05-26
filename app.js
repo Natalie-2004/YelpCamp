@@ -25,7 +25,7 @@ const reviewsRoutes = require('./routers/reviews.js');
 const usersRoutes = require('./routers/users.js');
 
 // mongodb://localhost:27017/yelp-camp
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
+mongoose.connect(mongoUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
@@ -48,12 +48,13 @@ app.use(flash());
 app.use(mongoSanitise());
 app.use(helmet());
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
 const store = MongoStore.create({
     mongoUrl: 'mongodb://localhost:27017/yelp-camp',
-    secret: 'password',
     touchAfter: 24 * 3600, // time in seconds
     crypto: {
-        secret: 'password'
+        secret
     }
 });
 
@@ -64,7 +65,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret: 'password',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
