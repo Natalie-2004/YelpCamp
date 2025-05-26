@@ -51,7 +51,7 @@ app.use(helmet());
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/yelp-camp',
+    mongoUrl: mongoUrl,
     touchAfter: 24 * 3600, // time in seconds
     crypto: {
         secret
@@ -162,6 +162,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-app.listen(3000, () => {
-    console.log('Servering on port 3000')
-})
+// dynamic port for EB production
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`);
+});
