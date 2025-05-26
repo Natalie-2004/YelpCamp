@@ -87,6 +87,8 @@
 - Create cluster maps to group nearby campgrounds, which adapted from MapBox
 - Fix seed data issues to ensure accurate map rendering, generating more campgrounds
 - Style campground pages and user pages, customise map popups for better user interaction
+- Ensure app free from common attacks such as NoSQL injection, XSS etc with Helmet
+- Use mongo for session store
 
 ## 2. Skill Stacks 🛠️
 
