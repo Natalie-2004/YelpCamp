@@ -15,9 +15,8 @@
       - [1.7 Updates](#17-updates)
       - [1.8 Updates](#18-updates)
   - [2. Skill Stacks 🛠️](#2-skill-stacks-️)
-  - [3. Setup Instructions ⚙️](#3-setup-instructions-️)
-  - [4. Seeding the Database 🌱](#4-seeding-the-database-)
-  - [5. Usage 🚀](#5-usage-)
+  - [3. Deployment ⚙️](#3-deployment-️)
+  - [4. Usage 🚀](#4-usage-)
 
 ## 1. Features and Functionality ✨
 
@@ -92,38 +91,29 @@
 
 ## 2. Skill Stacks 🛠️
 
-- Frontend: HTML/CSS/Javascript, EJS
-- Backend: JavaScript, Node.js
-- Database: Mongoose
-- Library/Model: MVC, BootStrap, Express.js, Mongoose
-- Platform: Git, VS Code, WebStorm
+- Frontend: HTML/CSS/Javascript, EJS, Bootstrap5
+- Backend: Node.js, Express.js
+- Database: MongoDB with mongoose ODM, Mongo Atlas
+- Library/Model: Passport.js, Joi, Multer, Cloudinary, Mapbox, Helmet
+- Security & Validation: Joi, Helmet, Mongo-sanitize & Express-mongo-sanitize
 
-## 3. Setup Instructions ⚙️
+## 3. Deployment ⚙️
 
-1. Clone the repo:
-   `git clone https://github.com/Natalie-2004/yelp-camp.git`
-   `cd yelp-camp`
-2. Install dependencies:
-   `npm install`
-3. Start the MongoDB server: (Ensure MongoDB is running on your machine)
+Website: https://yelpcamp-k2tw.onrender.com/
 
-   `mongosh mongodb://localhost:27017/yelp-camp`
-4. Open another terminal and run the line:
-   `node app.js`
-5. View the live server on any browser:
-   `http://localhost:3000`
+PS: Loading takes a bit long, please wait.
 
-## 4. Seeding the Database 🌱
+## 4. Usage 🚀
 
-To seed the database with random campgrounds:
-`node seeds/index.js`
-
-## 5. Usage 🚀
-
-- Navigate to `/campgrounds` to view all campgrounds seeded.
-- Use the "New Campground" button to create customise Campground.
-- Interact campground with options to view details, edit, or delete.
-- Leave rating and review under a campground to publics.
+🧭 Browsing: Any user can browse campgrounds and view detailed information.
+- 📝 Register an Account: New users can sign up with username, email, and password.
+- 🔐 Login/Logout: Users can authenticate to access restricted functionalities.
+- 🏕️ Create Campgrounds: Logged-in users can create and upload new campground listings.
+- ✏️ Edit/Delete Campgrounds: Users can only modify or remove campgrounds they created.
+- 💬 Review Campgrounds: Authenticated users can leave a rating and comment under each campground.
+- 🖼️ Upload/Remove Images: Image uploads and deletions are allowed during create/edit campground.
+- 🌍 View Maps: Interactive map is available to everyone for spatial visualisation.
+- ❌ Delete Reviews: Users can delete their own reviews; authors of the campground may also manage reviews under their post.
 
 
 
