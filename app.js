@@ -99,6 +99,7 @@ const connectSrcUrls = [
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
 ];
+
 const fontSrcUrls = [];
 app.use(
     helmet.contentSecurityPolicy({
@@ -162,6 +163,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-app.listen(3000, () => {
-    console.log('Servering on port 3000')
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => {
+    console.log(`Servering on port ${port}`);
 })
