@@ -1,6 +1,15 @@
 // environment variable for development
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
+// if (process.env.NODE_ENV !== "production") {
+//     require('dotenv').config();
+// }
+
+if (process.env.NODE_ENV !== 'production') {
+    try {
+      require('dotenv').config();
+      console.log('dotenv loaded for non-production environment.');
+    } catch (err) {
+      console.warn('dotenv module not found or .env file missing, even in non-production. This might be an issue locally.');
+    }
 }
 
 const mongoUrl = process.env.MONGO_URL;

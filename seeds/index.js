@@ -1,5 +1,14 @@
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
+// if (process.env.NODE_ENV !== "production") {
+//     require('dotenv').config();
+// }
+
+if (process.env.NODE_ENV !== 'production') {
+    try {
+      require('dotenv').config();
+      console.log('dotenv loaded for non-production environment.');
+    } catch (err) {
+      console.warn('dotenv module not found or .env file missing, even in non-production. This might be an issue locally.');
+    }
 }
 
 // to seed database, replace new campgrounds by deteling prev ones
@@ -8,6 +17,8 @@ const cities_au = require('./cities_au');
 const Campground = require('../models/campground');
 const {places, descriptors} = require('./seedHelpers');
 const { cloudinaryImages } = require('../cloudinary');
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 // mongoose.connect('mongodb://localhost:27017/yelp-camp'); // default port
 mongoose.connect(process.env.MONGO_URL);
@@ -18,6 +29,19 @@ db.once("open", () => {
     console.log("Database connected for seeding");
 })
 
+const createAdmin = async () => {
+    const exist = await User.findOne({username: 'testUser'});
+    if (exist) return exist;
+
+    const password = process.env.ADMIN_PASSWORD;
+    const user = new User({
+        email: '123@gmail.com',
+        username: 'testUser',
+    })
+    const registeredUser = await User.register(user, password);
+    return registeredUser;
+}
+
 // pick rand elem from array
 const randArr = (array) => {
     return array[Math.floor(Math.random() * array.length)]
@@ -26,6 +50,8 @@ const randArr = (array) => {
 // async fn returns promise
 const seedDb = async() => {
     await Campground.deleteMany({});
+
+    const admin = await createAdmin();
     
     for (let i = 0; i < 100; i++) {
         const rand = Math.floor(Math.random() * cities_au.length);
@@ -35,7 +61,7 @@ const seedDb = async() => {
         const image = randArr(cloudinaryImages);
 
         const camp = new Campground({
-            author: '67f9da2b6473b64bfc4fadca', // by default set testUser as the admin account
+            author: admin._id, // by default set testUser as the admin account
             location: `${cities_au[rand].city}, ${cities_au[rand].state}`,
             title: `${randArr(descriptors)} ${randArr(places)}`,
             images: [image],
