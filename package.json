@@ -1,4 +1,15 @@
 {
+    "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "YelpCamp application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.16.1",
     "bootstrap": "^5.3.3",
