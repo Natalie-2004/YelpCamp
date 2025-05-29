@@ -112,6 +112,5 @@ PS: Loading takes a bit long, please wait.
 - ✏️ Edit/Delete Campgrounds: Users can only modify or remove campgrounds they created.
 - 💬 Review Campgrounds: Authenticated users can leave a rating and comment under each campground.
 - 🖼️ Upload/Remove Images: Image uploads and deletions are allowed during create/edit campground.
-- 🌍 View Maps: Interactive map is available to everyone for spatial visualization.
+- 🌍 View Maps: Interactive map is available to everyone for spatial visualisation.
 - ❌ Delete Reviews: Users can delete their own reviews; authors of the campground may also manage reviews under their post.
-
