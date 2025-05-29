@@ -14,6 +14,8 @@ router.route('/')
 
 // new page, need to go before show page route
 router.get('/new', isLoggedIn, campgrounds.new);
+// search bar
+router.get('/search', catchAsync(campgrounds.search));
 
 // show page -> ':' have the lowest priority at the same route
 // update database, send whenever the form is submitted

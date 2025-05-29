@@ -85,7 +85,7 @@
 - Display interactive maps centered on individual campgrounds
 - Create cluster maps to group nearby campgrounds, which adapted from MapBox
 - Fix seed data issues to ensure accurate map rendering, generating more campgrounds
-- Style campground pages and user pages, customise map popups for better user interaction
+- Implement live search with dynamic filtering and cluster map
 - Ensure app free from common attacks such as NoSQL injection, XSS etc with Helmet
 - Use mongo for session store
 
@@ -114,6 +114,3 @@ PS: Loading takes a bit long, please wait.
 - 🖼️ Upload/Remove Images: Image uploads and deletions are allowed during create/edit campground.
 - 🌍 View Maps: Interactive map is available to everyone for spatial visualisation.
 - ❌ Delete Reviews: Users can delete their own reviews; authors of the campground may also manage reviews under their post.
-
-
-
