@@ -136,6 +136,7 @@ passport.deserializeUser(Users.deserializeUser());
 
 // capture flash success message among routers on every single request globally
 app.use((req, res, next) => {
+    res.locals.searchTerm = '';
     res.locals.currUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

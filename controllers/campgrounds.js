@@ -10,6 +10,25 @@ module.exports.index = async (req, res, next) => {
     res.render('campgrounds/index', { campgrounds });
 }
 
+module.exports.search = async (req, res, next) => {
+    const { q } = req.query;
+    let campgrounds;
+
+    if (q) {
+        const regex = new RegExp(q, 'i');
+        campgrounds = await Campground.find({
+            $or: [
+                {title: regex},
+                {location: regex},
+            ]
+        })
+    } else {
+        campgrounds = await Campground.find({});
+    }
+
+    res.render('campgrounds/index', { campgrounds, searchTerm: q || ''});
+}
+
 module.exports.new = (req, res) => {
     res.render('campgrounds/new');
 }
