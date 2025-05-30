@@ -5,7 +5,8 @@ if (process.env.NODE_ENV !== "production") {
 
 const mongoUrl = process.env.MONGO_URL;
 
-const express = require('express')
+const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
@@ -19,6 +20,7 @@ const LocalStrategy = require('passport-local');
 const Users = require('./models/user.js');
 const mongoSanitise = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const { swaggerUi, swaggerSpec } = require('./swagger.js');
 
 const campgroundsRoutes = require('./routers/campgrounds.js');
 const reviewsRoutes = require('./routers/reviews.js');
@@ -35,6 +37,7 @@ db.once("open", () => {
 
 // app config
 const app = express();
+app.use(cors());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -127,12 +130,20 @@ app.use(
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 passport.use(new LocalStrategy(Users.authenticate()));
 // get user into the session
 passport.serializeUser(Users.serializeUser());
 // get user out of the session
 passport.deserializeUser(Users.deserializeUser());
+
+app.use(cors({
+    origin: 'http://localhost:4000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 
 // capture flash success message among routers on every single request globally
 app.use((req, res, next) => {

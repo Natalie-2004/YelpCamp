@@ -1,0 +1,306 @@
+openapi: 3.0.0
+info:
+  title: YelpCamp API
+  description: A API documentation for campgrounds and reviews
+  version: 1.0.0
+servers:
+- url: http://localhost:4000
+tags:
+- name: Campgrounds
+  description: API endpoints for managing campgrounds
+- name: Reviews
+  description: API endpoints for managing reviews
+- name: Users
+  description: API endpoints for managing users
+paths:
+  /campgrounds:
+    get:
+      tags:
+      - Campgrounds
+      summary: Get a list of all campgrounds
+      responses:
+        "200":
+          description: A list of campgrounds
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campground'
+    post:
+      tags:
+      - Campgrounds
+      summary: Create a new campground
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Campground'
+        required: true
+      responses:
+        "201":
+          description: Campground created successfully
+  /campgrounds/new:
+    get:
+      tags:
+      - Campgrounds
+      summary: Render the form to create a new campground
+      responses:
+        "200":
+          description: Render the new campground form
+  /campgrounds/search:
+    get:
+      tags:
+      - Campgrounds
+      summary: Search for campgrounds by title or location
+      parameters:
+      - name: q
+        in: query
+        description: Search term for campground title or location
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: A list of campgrounds matching the search term (Title or Location)
+  /campgrounds/{id}:
+    get:
+      tags:
+      - Campgrounds
+      summary: Get a specific campground by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the campground to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: A specific campground
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campground'
+    put:
+      tags:
+      - Campgrounds
+      summary: Update a specific campground by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the campground to update
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Campground'
+        required: true
+      responses:
+        "200":
+          description: Campground updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campground'
+    delete:
+      tags:
+      - Campgrounds
+      summary: Delete a specific campground by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the campground to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Campground deleted successfully
+  /campgrounds/{id}/edit:
+    get:
+      tags:
+      - Campgrounds
+      summary: Render the form to edit a specific campground by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the campground to edit
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Render the edit campground form
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campground'
+  /campgrounds/{id}/reviews:
+    post:
+      tags:
+      - Reviews
+      summary: Create a new review for a campground
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the campground to create a review for
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      responses:
+        "201":
+          description: Review created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        "400":
+          description: Invalid input
+  /campgrounds/{id}/reviews/{reviewId}:
+    delete:
+      tags:
+      - Reviews
+      summary: Delete a specific review from a campground
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the campground
+        required: true
+        schema:
+          type: string
+      - name: reviewId
+        in: path
+        description: The ID of the review to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Review deleted successfully
+        "403":
+          description: Unauthorized or forbidden action
+        "404":
+          description: Review or campground not found
+  /register:
+    get:
+      tags:
+      - Users
+      summary: Render registration page
+      responses:
+        "200":
+          description: Registration page rendered successfully
+        "500":
+          description: Internal server error
+    post:
+      tags:
+      - Users
+      summary: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: User registered successfully
+        "400":
+          description: Invalid input
+        "500":
+          description: Internal server error
+  /login:
+    get:
+      tags:
+      - Users
+      summary: Render login page
+      responses:
+        "200":
+          description: Login page rendered successfully
+        "500":
+          description: Internal server error
+    post:
+      tags:
+      - Users
+      summary: Log in a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: User logged in successfully
+        "401":
+          description: Unauthorized – Invalid credentials
+        "500":
+          description: Internal server error
+  /logout:
+    get:
+      tags:
+      - Users
+      summary: Log out the currently logged-in user
+      responses:
+        "200":
+          description: User logged out successfully
+        "401":
+          description: Unauthorized – User is not logged in
+        "500":
+          description: Internal server error
+components:
+  schemas:
+    Image:
+      type: object
+      properties:
+        url:
+          type: string
+        filename:
+          type: string
+    Campground:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        location:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    Review:
+      type: object
+      properties:
+        body:
+          type: string
+        rating:
+          type: number
+        author:
+          type: object
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
