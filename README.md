@@ -2,7 +2,7 @@
 
 An end-to-end **full-stack web application** for sharing and reviewing campgrounds — inspired by Colt Steele. Users can create accounts, post campgrounds, write reviews, upload images, and explore locations on an interactive map.
 
-🔗 [Live Website](https://yelpcamp-k2tw.onrender.com/) • 📦 [GitHub Repo](https://github.com/Natalie-2004/YelpCamp/tree/main)
+🔗 [Live Website](https://yelpcamp-k2tw.onrender.com/) • 📦 [GitHub Repo](https://github.com/Natalie-2004/YelpCamp/tree/main) • 📝 [API Doc](https://natalie-2004.github.io/swagger-docs/)
 
 ---
 
