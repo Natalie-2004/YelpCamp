@@ -1,116 +1,112 @@
-# Yelp Camp 🏕️ (v8)
+# 🏕️ YelpCamp v8
 
-## Contents 🌈
+An end-to-end **full-stack web application** for sharing and reviewing campgrounds — inspired by Colt Steele. Users can create accounts, post campgrounds, write reviews, upload images, and explore locations on an interactive map.
 
-- [Yelp Camp 🏕️ (v8)](#yelp-camp-️-v8)
-  - [Contents 🌈](#contents-)
-  - [1. Features and Functionality ✨](#1-features-and-functionality-)
-    - [Update Log](#update-log)
-      - [1.1 Updates](#11-updates)
-      - [1.2 Updates](#12-updates)
-      - [1.3 Updates](#13-updates)
-      - [1.4 Updates](#14-updates)
-      - [1.5 Updates](#15-updates)
-      - [1.6 Updates](#16-updates)
-      - [1.7 Updates](#17-updates)
-      - [1.8 Updates](#18-updates)
-  - [2. Skill Stacks 🛠️](#2-skill-stacks-️)
-  - [3. Deployment ⚙️](#3-deployment-️)
-  - [4. Usage 🚀](#4-usage-)
+🔗 [Live Website](https://yelpcamp-k2tw.onrender.com/) • 📦 [GitHub Repo](https://github.com/Natalie-2004/YelpCamp/tree/main) • 📝 [API Doc](https://natalie-2004.github.io/swagger-docs/)
 
-## 1. Features and Functionality ✨
+---
 
-### Update Log
+## 📚 Table of Contents
 
-#### 1.1 Updates
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#-tech-stack)
+- [🚀 Usage](#-usage)
+- [⚙️ Deployment](#-deployment)
+- [📄 Setup Instructions](#-setup-instructions)
+- [🧪 Future Improvements](#-future-improvements)
 
-- Create new campgrounds model with a title and location
-- View a list of all campgrounds
-- Edit existing campgrounds
-- Delete campgrounds
+---
 
-#### 1.2 Updates
+## ✨ Features
 
-- Style index, show, edit and new campground page using bootstrap5
-- Introduce random images, pricing and description to database
-- Refactor Boilderplate by isolating footer and navBar at separate files
-- Custom cursor and favicon
+### 🔧 Core Functionality
+- Full CRUD operations on campgrounds and reviews
+- User registration, login, and logout
+- **Role-based access control** — only authors can edit/delete their posts and reviews
+- Server-side and client-side data validation
+- Flash messages responding to users' interaction with the app
+- Responsive web design
 
-#### 1.3 Updates
+### 🌐 Mapping & Search
+- Geocoding with **Mapbox** and **GeoJSON** integration
+- Interactive cluster maps for campground locations
+- Live search with **dynamic filtering**
 
-- Implement Client and Server Side validation to enhance user experience
-- Handle basic async function error and develop consistence error display template
-- Customise ExpressError handler to standardise error handling across the app
-- Integrate Joi schemas as middleware to validate incoming request data
+### 📷 Image Uploads
+- Image uploads and deletions using **Multer** and **Cloudinary**
+- Carousel display for multiple images per campground
 
-#### 1.4 Updates
+### 🛡️ Security
+- Protection against **NoSQL injection**, **XSS**, and other vulnerabilities
+- Secure session storage with **MongoDB**
+- Sanitization with **helmet**, `express-mongo-sanitize`, and `mongo-sanitize`
 
-- Implement Review Model to allow user leave their universal ratings and feedbacks for a  campground particularly
-- Display users' reviews on show page
-- Validating reviews at both server and client side
-- Handling deletion of singular review using button and multiple reviews by delete a whole campground body
+---
 
-#### 1.5 Updates
+## 🛠️ Tech Stack
 
-- Refactor app.js to move RESTful routes into independent route folder
-- Isolating routes for both campground and review models into separate files
-- Serve static assets from public folder for user interface
-- Enable session management and cookie configuration
-- Integrate flash section to capturing success and error messages and alert on client side
+| Layer        | Technology |
+|--------------|------------|
+| **Frontend** | HTML, CSS, JavaScript, EJS, Bootstrap 5 |
+| **Backend**  | Node.js, Express.js |
+| **Database** | MongoDB (with Mongoose), MongoDB Atlas |
+| **Auth & Forms** | Passport.js, Joi |
+| **Uploads**  | Multer, Cloudinary |
+| **Mapping**  | Mapbox, GeoJSON |
+| **Security** | Helmet, Mongo Sanitize, Express Mongo Sanitize |
 
-#### 1.6 Updates
+---
 
-- Create User model for handle users' registration, login and logout process using passport.js
-- Implement express routes for users' requests
-- Restrict unlogin-users from modifying, commenting at campgrounds
-- Use middleware to execute login logic and preserve url unlogin-users visited previously after being redirected to login site
-- Refactor narBar to carry out functionalities such as login, logout and register
-- Decorate corresponding forms to collect users credentials such as usernames, emails and passwords for verification
-- Limit client-side access to unauthorised users
-- Enhance permission at both Campground and Review models
-- Display authors for campground and reviews
+## 🚀 Usage
 
-#### 1.7 Updates
+### 🧭 Explore Features
+- View campgrounds and reviews without login
+- Explore interactive maps of campground locations
 
-- Refactor and centralise routes (campgrounds, reviews, users) to adapt MVC pattern
-- Implement Multer for handling multipart/form-data in Express
-- Register and configure Cloudinary for images, storing cloud images at database, and ensuring synchronization between Cloudinary and MongoDB
-- Enable image uploads and deletion on client-side
-- Display uploaded images dynamically in a carousel UI on the client-side
-- Enhance UI for a better user experience
+### 📝 Account Management
+- Register a new user account
+- Login/Logout to access full features
 
-#### 1.8 Updates
+### 🏕️ Campground Listings
+- Add, edit, and delete your own campgrounds
+- Upload multiple images per campground
+- See your campground on the map
 
-- Implement geocoding for campground locations and integrated GeoJSON for spatial data handling
-- Display interactive maps centered on individual campgrounds
-- Create cluster maps to group nearby campgrounds, which adapted from MapBox
-- Fix seed data issues to ensure accurate map rendering, generating more campgrounds
-- Implement live search with dynamic filtering and cluster map
-- Ensure app free from common attacks such as NoSQL injection, XSS etc with Helmet
-- Use mongo for session store
+### 💬 Reviews and Ratings
+- Post and delete reviews for any campground
+- Only review authors or campground creators can delete
 
-## 2. Skill Stacks 🛠️
+---
 
-- Frontend: HTML/CSS/Javascript, EJS, Bootstrap5
-- Backend: Node.js, Express.js
-- Database: MongoDB with mongoose ODM, Mongo Atlas
-- Library/Model: Passport.js, Joi, Multer, Cloudinary, Mapbox, Helmet
-- Security & Validation: Joi, Helmet, Mongo-sanitize & Express-mongo-sanitize
+## ⚙️ Deployment
 
-## 3. Deployment ⚙️
+- **Live Demo**: [yelpcamp-k2tw.onrender.com](https://yelpcamp-k2tw.onrender.com/)
+> ⚠️ Initial load might take a few seconds on Render free tier.
+> ⚠️ Do not disclose real password through registration even though password is automatically hashing
 
-Website: https://yelpcamp-k2tw.onrender.com/
+---
 
-PS: Loading takes a bit long, please wait.
+## 📄 Setup Instructions
 
-## 4. Usage 🚀
+> Run the following steps to get this project running locally:
 
-🧭 Browsing: Any user can browse campgrounds and view detailed information.
-- 📝 Register an Account: New users can sign up with username, email, and password.
-- 🔐 Login/Logout: Users can authenticate to access restricted functionalities.
-- 🏕️ Create Campgrounds: Logged-in users can create and upload new campground listings.
-- ✏️ Edit/Delete Campgrounds: Users can only modify or remove campgrounds they created.
-- 💬 Review Campgrounds: Authenticated users can leave a rating and comment under each campground.
-- 🖼️ Upload/Remove Images: Image uploads and deletions are allowed during create/edit campground.
-- 🌍 View Maps: Interactive map is available to everyone for spatial visualisation.
-- ❌ Delete Reviews: Users can delete their own reviews; authors of the campground may also manage reviews under their post.
+```bash
+# 1. Clone the repo
+git clone https://github.com/Natalie-2004/YelpCamp.git
+
+# 2. Navigate to the project directory
+cd YelpCamp
+
+# 3. Install dependencies
+npm install
+
+# 4. Create a `.env` file and add the following:
+# CLOUDINARY_CLOUD_NAME=
+# CLOUDINARY_KEY=
+# CLOUDINARY_SECRET=
+# MAPBOX_TOKEN=
+# DB_URL=your_mongodb_atlas_url || default_mongodb_url
+# SECRET=your_cookie_secret
+
+# 5. Start the server
+node app.js
