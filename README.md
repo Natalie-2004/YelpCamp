@@ -81,8 +81,8 @@ An end-to-end **full-stack web application** for sharing and reviewing campgroun
 ## ⚙️ Deployment
 
 - **Live Demo**: [yelpcamp-k2tw.onrender.com](https://yelpcamp-k2tw.onrender.com/)
-> ⚠️ Initial load might take a few seconds on Render free tier.
-> ⚠️ Do not disclose real password through registration even though password is automatically hashing
+> ⚠️ Initial load might take a few minutes due to free tier.
+> ⚠️ Do not disclose real password through registration.
 
 ---
 
